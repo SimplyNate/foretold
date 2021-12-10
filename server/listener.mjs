@@ -1,4 +1,5 @@
 import dgram from 'dgram';
+import { forzaParser } from './ForzaParser.mjs';
 
 const server = dgram.createSocket('udp4');
 
@@ -8,8 +9,14 @@ server.on('error', (err) => {
 });
 
 server.on('message', (msg, rinfo) => {
-    process.exit(1);
-    process.stdout.write(`${msg.toString('hex')}\t${rinfo.address}\t${rinfo.port}\r`)
+    try {
+        const parsed = forzaParser(msg);
+        process.stdout.write(`${parsed.speed}\r`);
+    }
+    catch (e) {
+        console.error(e);
+        process.exit(1);
+    }
 });
 
 server.on('listening', () => {

@@ -86,4 +86,6 @@ declare interface ForzaPacket {
     normalAiBrakeDifference: number
 }
 
+export function sliceBuffer(buffer: Buffer, start: number, end: number): number;
+
 export function forzaParser(buffer: Buffer): ForzaPacket;

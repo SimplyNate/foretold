@@ -1,5 +1,14 @@
-function sliceBuffer(buffer, start, offset) {
-    return Number((buffer.slice(start, start + offset)).toString('utf-8'));
+/**
+ *
+ * @param {Buffer} buffer
+ * @param {number} start
+ * @param {number} offset
+ * @returns {number}
+ */
+export function sliceBuffer(buffer, start, offset) {
+    const slice = buffer.slice(start, start + offset);
+    const hex = slice.readInt8();
+    return hex;
 }
 
 export function forzaParser(buffer) {
