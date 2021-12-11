@@ -84,8 +84,16 @@ declare interface ForzaPacket {
     steer: number,
     normalDrivingLine: number,
     normalAiBrakeDifference: number
+    unknown1: number,
+    unknown2: number,
+    unknown3: number,
+    unknown4: number,
 }
 
-export function sliceBuffer(buffer: Buffer, start: number, end: number): number;
+export function getSingle(buffer: Buffer, start: number, length: number): number;
+export function getUInt32(buffer: Buffer, start: number, length: number): number;
+export function getUInt16(buffer: Buffer, start: number, length: number): number;
+export function getUInt8(buffer: Buffer, start: number, length: number): number;
+export function getInt8(buffer: Buffer, start: number, length: number): number;
 
 export function forzaParser(buffer: Buffer): ForzaPacket;
