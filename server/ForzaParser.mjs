@@ -126,7 +126,7 @@ export function forzaParser(buffer) {
     forzaPacket.positionX = getSingle(buffer, 244, 4);
     forzaPacket.positionY = getSingle(buffer, 248, 4);
     forzaPacket.positionZ = getSingle(buffer, 252, 4);
-    forzaPacket.speed = getSingle(buffer, 256, 4);
+    forzaPacket.speed = getSingle(buffer, 256, 4); // * 2.2267;
     forzaPacket.power = getSingle(buffer, 260, 4);
     forzaPacket.torque = getSingle(buffer, 264, 4);
     forzaPacket.tireTempFl = getSingle(buffer, 268, 4);
