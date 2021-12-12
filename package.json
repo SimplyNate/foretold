@@ -4,14 +4,15 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --mode production --dest ./server/dist --modern ",
     "lint": "vue-cli-service lint",
     "listen": "node server/listener.mjs"
   },
   "dependencies": {
     "fastify": "^3.24.1",
     "fastify-static": "^4.5.0",
-    "vue": "^3.2.24"
+    "vue": "^3.2.24",
+    "ws": "^6.2.2"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.18.0",
@@ -26,5 +27,9 @@
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
     "typescript": "~4.1.5"
+  },
+  "optionalDependencies": {
+    "bufferutil": "^4.0.5",
+    "utf-8-validate": "^5.0.7"
   }
 }

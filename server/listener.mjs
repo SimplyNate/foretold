@@ -1,37 +1,66 @@
 import dgram from 'dgram';
 import { forzaParser } from './ForzaParser.mjs';
-import fastify from 'fastify';
+import Fastify from 'fastify';
 import fastifyStatic from 'fastify-static';
-import * as path from "path";
+import * as path from 'path';
+import childProcess from 'child_process';
+import ws from 'ws';
 
-fastify();
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
-const server = dgram.createSocket('udp4');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-server.on('error', (err) => {
-    console.error(`Server Error: ${err.stack}`);
-    server.close();
+const wss = new ws.Server({ port: 3001 });
+
+wss.on('connection', function connection(ws) {
+    const server = dgram.createSocket('udp4');
+
+    server.on('error', (err) => {
+        console.error(`Server Error: ${err.stack}`);
+        server.close();
+    });
+
+    server.on('message', (msg, rinfo) => {
+        try {
+            const parsed = forzaParser(msg);
+            ws.send(JSON.stringify(parsed));
+        }
+        catch (e) {
+            console.error(e);
+            process.exit(1);
+        }
+    });
+
+    server.on('listening', () => {
+        const address = server.address();
+        address.address = '127.0.0.1';
+        console.log(`Server listening on ${address.address}:${address.port}`);
+    });
+
+    server.bind(5300);
 });
 
-server.on('message', (msg, rinfo) => {
+
+const fastify = Fastify({ logger: true });
+fastify.register(fastifyStatic, {
+    root: path.join(__dirname, 'dist'),
+});
+
+
+async function start() {
     try {
-        const parsed = forzaParser(msg);
-        process.stdout.write(`${parsed.speed}\r`);
-    }
-    catch (e) {
-        console.error(e);
+        await fastify.listen(3000);
+    } catch (err) {
+        fastify.log.error(err);
         process.exit(1);
     }
-});
+}
 
-server.on('listening', () => {
-    const address = server.address();
-    address.address = '127.0.0.1';
-    console.log(`Server listening on ${address.address}:${address.port}`);
-});
+start();
 
-server.bind(5300);
 
-fastify.register(fastifyStatic, {
-    root: path.join(__dirname, 'dist')
-})
+
+const url = 'http://localhost:3000/';
+childProcess.exec(`xdg-open ${url}`);
