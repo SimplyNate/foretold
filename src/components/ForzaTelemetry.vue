@@ -25,8 +25,8 @@
         <div>suspensionTravelMetersFr: {{ telemetry.suspensionTravelMetersFr }}</div>
         <div>suspensionTravelMetersRl: {{ telemetry.suspensionTravelMetersRl }}</div>
         <div>suspensionTravelMetersRr: {{ telemetry.suspensionTravelMetersRr }}</div>
-        <div>speed: {{ telemetry.speed }}</div>
-        <div>power: {{ telemetry.power }}</div>
+        <div>speed: {{ telemetry.speed * conversions.speed }}</div>
+        <div>power: {{ telemetry.power / conversions.power }}</div>
         <div>torque: {{ telemetry.torque }}</div>
         <div>tireTempFl: {{ telemetry.tireTempFl }}</div>
         <div>tireTempFr: {{ telemetry.tireTempFr }}</div>
@@ -43,19 +43,36 @@
 </template>
 
 <script lang="ts">
-import {defineComponent} from 'vue';
+import { defineComponent } from 'vue';
+import { ForzaPacket } from '../../server/ForzaParser';
+
+interface ForzaTelemetryData {
+    telemetry: ForzaPacket | null,
+    conversions: {
+        speed: number,
+        power: number,
+    }
+}
 
 export default defineComponent({
     name: 'ForzaTelemetry',
-    data() {
+    data(): ForzaTelemetryData {
         return {
-            telemetry: {},
+            telemetry: null,
+            conversions: {
+                speed: 2.23694, // meters per second to mph
+                power: 745.7, // watts to horsepower
+            }
         };
     },
     mounted() {
         const ws = new WebSocket('ws://localhost:3001');
         ws.onmessage = (payload) => {
             this.telemetry = JSON.parse(payload.data);
+            if (this.telemetry) {
+                this.telemetry.speed *= this.conversions.speed;
+                this.telemetry.power /= this.conversions.power;
+            }
         }
     },
 });

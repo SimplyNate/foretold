@@ -89,38 +89,47 @@ export function forzaParser(buffer) {
     forzaPacket.yaw = getSingle(buffer, 56, 4);
     forzaPacket.pitch = getSingle(buffer, 60, 4);
     forzaPacket.roll = getSingle(buffer, 64, 4);
+    // Suspension travel normalized: 0.0f = max stretch; 1.0 = max compression
     forzaPacket.normSuspensionTravelFl = getSingle(buffer, 68, 4);
     forzaPacket.normSuspensionTravelFr = getSingle(buffer, 72, 4);
     forzaPacket.normSuspensionTravelRl = getSingle(buffer, 76, 4);
     forzaPacket.normSuspensionTravelRr = getSingle(buffer, 80, 4);
+    // Tire normalized slip ratio, = 0 means 100% grip and |ratio| > 1.0 means loss of grip.
     forzaPacket.tireSlipRatioFl = getSingle(buffer, 84, 4);
     forzaPacket.tireSlipRatioFr = getSingle(buffer, 88, 4);
     forzaPacket.tireSlipRatioRl = getSingle(buffer, 92, 4);
     forzaPacket.tireSlipRatioRr = getSingle(buffer, 96, 4);
-    forzaPacket.wheelRotationSpeedFl = getInt32(buffer, 100, 4);
-    forzaPacket.wheelRotationSpeedFr = getInt32(buffer, 104, 4);
-    forzaPacket.wheelRotationSpeedRl = getInt32(buffer, 108, 4);
-    forzaPacket.wheelRotationSpeedRr = getInt32(buffer, 112, 4);
+    // Wheel rotation speed radians/sec.
+    forzaPacket.wheelRotationSpeedFl = getSingle(buffer, 100, 4);
+    forzaPacket.wheelRotationSpeedFr = getSingle(buffer, 104, 4);
+    forzaPacket.wheelRotationSpeedRl = getSingle(buffer, 108, 4);
+    forzaPacket.wheelRotationSpeedRr = getSingle(buffer, 112, 4);
+    // = 1 when wheel is on rumble strip, = 0 when off.
     forzaPacket.wheelOnRumbleStripFl = getInt32(buffer, 116, 4);
     forzaPacket.wheelOnRumbleStripFr = getInt32(buffer, 120, 4);
     forzaPacket.wheelOnRumbleStripRl = getInt32(buffer, 124, 4);
     forzaPacket.wheelOnRumbleStripRr = getInt32(buffer, 128, 4);
+    // = from 0 to 1, where 1 is the deepest puddle
     forzaPacket.wheelInPuddleFl = getSingle(buffer, 132, 4);
     forzaPacket.wheelInPuddleFr = getSingle(buffer, 136, 4);
     forzaPacket.wheelInPuddleRl = getSingle(buffer, 140, 4);
     forzaPacket.wheelInPuddleRr = getSingle(buffer, 144, 4);
+    // Non-dimensional surface rumble values passed to controller force feedback
     forzaPacket.surfaceRumbleFl = getSingle(buffer, 148, 4);
     forzaPacket.surfaceRumbleFr = getSingle(buffer, 152, 4);
     forzaPacket.surfaceRumbleRl = getSingle(buffer, 156, 4);
     forzaPacket.surfaceRumbleRr = getSingle(buffer, 160, 4);
+    // Tire normalized slip angle, = 0 means 100% grip and |angle| > 1.0 means loss of grip.
     forzaPacket.tireSlipAngleFl = getSingle(buffer, 164, 4);
     forzaPacket.tireSlipAngleFr = getSingle(buffer, 168, 4);
     forzaPacket.tireSlipAngleRl = getSingle(buffer, 172, 4);
     forzaPacket.tireSlipAngleRr = getSingle(buffer, 176, 4);
+    // Tire normalized combined slip, = 0 means 100% grip and |slip| > 1.0 means loss of grip.
     forzaPacket.tireCombinedSlipFl = getSingle(buffer, 180, 4);
     forzaPacket.tireCombinedSlipFr = getSingle(buffer, 184, 4);
     forzaPacket.tireCombinedSlipRl = getSingle(buffer, 188, 4);
     forzaPacket.tireCombinedSlipRr = getSingle(buffer, 192, 4);
+    // Actual suspension travel in meters
     forzaPacket.suspensionTravelMetersFl = getSingle(buffer, 196, 4);
     forzaPacket.suspensionTravelMetersFr = getSingle(buffer, 200, 4);
     forzaPacket.suspensionTravelMetersRl = getSingle(buffer, 204, 4);
@@ -138,8 +147,11 @@ export function forzaParser(buffer) {
     forzaPacket.positionX = getSingle(buffer, 244, 4);
     forzaPacket.positionY = getSingle(buffer, 248, 4);
     forzaPacket.positionZ = getSingle(buffer, 252, 4);
-    forzaPacket.speed = getSingle(buffer, 256, 4); // * 2.2267;
+    // meters per second
+    forzaPacket.speed = getSingle(buffer, 256, 4);
+    // watts
     forzaPacket.power = getSingle(buffer, 260, 4);
+    // newton meter
     forzaPacket.torque = getSingle(buffer, 264, 4);
     forzaPacket.tireTempFl = getSingle(buffer, 268, 4);
     forzaPacket.tireTempFr = getSingle(buffer, 272, 4);
