@@ -103,4 +103,29 @@ export default defineComponent({
     flex-grow: 1;
 }
 
+.progress-bar-empty {
+    height: 12px;
+    background-color: lightgray;
+}
+
+.progress-bar-fill {
+    height: 12px;
+}
+
+.green {
+    background-color: limegreen;
+}
+
+.red {
+    background-color: darkred;
+}
+
+.yellow {
+    background-color: yellow;
+}
+
+.blue {
+    background-color: lightskyblue;
+}
+
 </style>
