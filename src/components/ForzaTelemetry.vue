@@ -1,13 +1,13 @@
 <template>
-    <div class="grid-container">
-        <div class="grid-item controls">
+    <div class="flex-container">
+        <div class="flex-item controls">
             <div>accelerator: {{ telemetry.accelerator }}</div>
             <div>brake: {{ telemetry.brake }}</div>
             <div>clutch: {{ telemetry.clutch }}</div>
             <div>handbrake: {{ telemetry.handbrake }}</div>
             <div>steer: {{ telemetry.steer }}</div>
         </div>
-        <div class="grid-item tires">
+        <div class="flex-item tires">
             <div>normSuspensionTravelFl: {{ telemetry.normSuspensionTravelFl }}</div>
             <div>normSuspensionTravelFr: {{ telemetry.normSuspensionTravelFr }}</div>
             <div>normSuspensionTravelRl: {{ telemetry.normSuspensionTravelRl }}</div>
@@ -38,7 +38,7 @@
             <div>tireTempRl: {{ telemetry.tireTempRl }}</div>
             <div>tireTempRr: {{ telemetry.tireTempRr }}</div>
         </div>
-        <div class="grid-item power">
+        <div class="flex-item power">
             <div>currentEngineRpm: {{ telemetry.currentEngineRpm }}</div>
             <div>gear: {{ telemetry.gear }}</div>
             <div>speed: {{ telemetry.speed }}</div>
@@ -65,7 +65,9 @@ export default defineComponent({
     name: 'ForzaTelemetry',
     data(): ForzaTelemetryData {
         return {
-            telemetry: null,
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            telemetry: {},
             conversions: {
                 speed: 2.23694, // meters per second to mph
                 power: 745.7, // watts to horsepower
@@ -88,7 +90,17 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.grid-container {
-    display: grid;
+.flex-container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
+
+.flex-item {
+    flex-grow: 1;
+}
+
 </style>
