@@ -3,7 +3,7 @@ import { forzaParser } from './ForzaParser.mjs';
 import Fastify from 'fastify';
 import fastifyStatic from 'fastify-static';
 import * as path from 'path';
-import childProcess from 'child_process';
+import open from 'open';
 import ws from 'ws';
 
 import { fileURLToPath } from 'url';
@@ -13,9 +13,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const wss = new ws.Server({ port: 3001 });
+console.log('Opened websocket server on port 3001');
 
 wss.on('connection', function connection(ws) {
     const server = dgram.createSocket('udp4');
+    console.log('Created dgram UDP listen server');
 
     server.on('error', (err) => {
         console.error(`Server Error: ${err.stack}`);
@@ -43,7 +45,7 @@ wss.on('connection', function connection(ws) {
 });
 
 
-const fastify = Fastify({ logger: true });
+const fastify = Fastify({ logger: false });
 fastify.register(fastifyStatic, {
     root: path.join(__dirname, 'dist'),
 });
@@ -59,8 +61,7 @@ async function start() {
 }
 
 start();
-
-
-
 const url = 'http://localhost:3000/';
-childProcess.exec(`xdg-open ${url}`);
+
+console.log(`Started fastify webserver at ${url}`);
+open(url);
