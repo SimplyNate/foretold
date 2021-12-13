@@ -29,6 +29,18 @@ export function getUInt32(buffer, start, length) {
  * @param {number} length
  * @returns {number}
  */
+export function getInt32(buffer, start, length) {
+    const slice = buffer.slice(start, start + length);
+    return slice.readInt32LE();
+}
+
+/**
+ *
+ * @param {Buffer} buffer
+ * @param {number} start
+ * @param {number} length
+ * @returns {number}
+ */
 export function getUInt16(buffer, start, length) {
     const slice = buffer.slice(start, start + length);
     return slice.readUInt16LE();
@@ -60,7 +72,7 @@ export function getInt8(buffer, start, length) {
 
 export function forzaParser(buffer) {
     const forzaPacket = {};
-    forzaPacket.isRaceOn = getSingle(buffer, 0, 4) > 0;
+    forzaPacket.isRaceOn = getInt32(buffer, 0, 4) > 0;
     forzaPacket.timestamp = getUInt32(buffer, 4, 4);
     forzaPacket.engineMaxRpm = getSingle(buffer,8, 4);
     forzaPacket.engineIdleRpm = getSingle(buffer,12, 4);
@@ -85,14 +97,14 @@ export function forzaParser(buffer) {
     forzaPacket.tireSlipRatioFr = getSingle(buffer, 88, 4);
     forzaPacket.tireSlipRatioRl = getSingle(buffer, 92, 4);
     forzaPacket.tireSlipRatioRr = getSingle(buffer, 96, 4);
-    forzaPacket.wheelRotationSpeedFl = getSingle(buffer, 100, 4);
-    forzaPacket.wheelRotationSpeedFr = getSingle(buffer, 104, 4);
-    forzaPacket.wheelRotationSpeedRl = getSingle(buffer, 108, 4);
-    forzaPacket.wheelRotationSpeedRr = getSingle(buffer, 112, 4);
-    forzaPacket.wheelOnRumbleStripFl = getSingle(buffer, 116, 4);
-    forzaPacket.wheelOnRumbleStripFr = getSingle(buffer, 120, 4);
-    forzaPacket.wheelOnRumbleStripRl = getSingle(buffer, 124, 4);
-    forzaPacket.wheelOnRumbleStripRr = getSingle(buffer, 128, 4);
+    forzaPacket.wheelRotationSpeedFl = getInt32(buffer, 100, 4);
+    forzaPacket.wheelRotationSpeedFr = getInt32(buffer, 104, 4);
+    forzaPacket.wheelRotationSpeedRl = getInt32(buffer, 108, 4);
+    forzaPacket.wheelRotationSpeedRr = getInt32(buffer, 112, 4);
+    forzaPacket.wheelOnRumbleStripFl = getInt32(buffer, 116, 4);
+    forzaPacket.wheelOnRumbleStripFr = getInt32(buffer, 120, 4);
+    forzaPacket.wheelOnRumbleStripRl = getInt32(buffer, 124, 4);
+    forzaPacket.wheelOnRumbleStripRr = getInt32(buffer, 128, 4);
     forzaPacket.wheelInPuddleFl = getSingle(buffer, 132, 4);
     forzaPacket.wheelInPuddleFr = getSingle(buffer, 136, 4);
     forzaPacket.wheelInPuddleRl = getSingle(buffer, 140, 4);
@@ -113,11 +125,11 @@ export function forzaParser(buffer) {
     forzaPacket.suspensionTravelMetersFr = getSingle(buffer, 200, 4);
     forzaPacket.suspensionTravelMetersRl = getSingle(buffer, 204, 4);
     forzaPacket.suspensionTravelMetersRr = getSingle(buffer, 208, 4);
-    forzaPacket.carOrdinal = getUInt8(buffer, 212, 4);
-    forzaPacket.carClass = getUInt8(buffer, 216, 4);
-    forzaPacket.carPerformanceIndex = getUInt8(buffer, 220, 4);
-    forzaPacket.driveTrain = getUInt8(buffer, 224, 4);
-    forzaPacket.numCylinders = getUInt8(buffer, 228, 4);
+    forzaPacket.carOrdinal = getInt32(buffer, 212, 4);
+    forzaPacket.carClass = getInt32(buffer, 216, 4);
+    forzaPacket.carPerformanceIndex = getInt32(buffer, 220, 4);
+    forzaPacket.driveTrain = getInt32(buffer, 224, 4);
+    forzaPacket.numCylinders = getInt32(buffer, 228, 4);
 
     forzaPacket.unknown1 = getUInt8(buffer, 232, 4);
     forzaPacket.unknown2 = getUInt8(buffer, 236, 4);
@@ -148,8 +160,8 @@ export function forzaParser(buffer) {
     forzaPacket.handbrake = getUInt8(buffer, 318, 1);
     forzaPacket.gear = getUInt8(buffer, 319, 1);
     forzaPacket.steer = getInt8(buffer, 320, 1);
-    forzaPacket.normalDrivingLine = getUInt8(buffer, 321, 1);
-    forzaPacket.normalAiBrakeDifference = getUInt8(buffer, 322, 1);
+    forzaPacket.normalDrivingLine = getInt8(buffer, 321, 1);
+    forzaPacket.normalAiBrakeDifference = getInt8(buffer, 322, 1);
 
     forzaPacket.unknown4 = getUInt8(buffer, 323, 1);
     return forzaPacket;
