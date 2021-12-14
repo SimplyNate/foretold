@@ -89,7 +89,7 @@ export default defineComponent({
             // @ts-ignore
             this.telemetry.speed *= this.conversions.speed;
             // @ts-ignore
-            this.telemetry?.power /= this.conversions.power;
+            this.telemetry.power /= this.conversions.power;
             // @ts-ignore
             this.telemetry.accelerator = this.telemetry.accelerator / 255;
         }
