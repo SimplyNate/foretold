@@ -1,7 +1,10 @@
 <template>
-    <div class="flex-container">
+    <div class="flex-container fullscreen">
         <div class="flex-item controls">
-            <div>accelerator: {{ telemetry.accelerator }}</div>
+            <div class="flex-container">
+                <div class="flex-item">accelerator: {{ telemetry.accelerator }}</div>
+                <progress-bar class="flex-item" color="green" :value="telemetry.accelerator" />
+            </div>
             <div>brake: {{ telemetry.brake }}</div>
             <div>clutch: {{ telemetry.clutch }}</div>
             <div>handbrake: {{ telemetry.handbrake }}</div>
@@ -50,8 +53,10 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { defineComponent } from 'vue';
 import { ForzaPacket } from '../../server/ForzaParser';
+import ProgressBar from '@/components/ProgressBar.vue';
 
 interface ForzaTelemetryData {
     telemetry: ForzaPacket | null,
@@ -63,6 +68,9 @@ interface ForzaTelemetryData {
 
 export default defineComponent({
     name: 'ForzaTelemetry',
+    components: {
+        ProgressBar,
+    },
     data(): ForzaTelemetryData {
         return {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -78,12 +86,12 @@ export default defineComponent({
         const ws = new WebSocket('ws://localhost:3001');
         ws.onmessage = (payload) => {
             this.telemetry = JSON.parse(payload.data);
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             this.telemetry.speed *= this.conversions.speed;
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
-            this.telemetry.power /= this.conversions.power;
+            this.telemetry?.power /= this.conversions.power;
+            // @ts-ignore
+            this.telemetry.accelerator = this.telemetry.accelerator / 255;
         }
     },
 });
@@ -91,41 +99,19 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .flex-container {
-    height: 100vh;
-    width: 100vw;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
 }
 
+.fullscreen {
+    height: 100vh;
+    width: 100vw;
+}
+
 .flex-item {
     flex-grow: 1;
-}
-
-.progress-bar-empty {
-    height: 12px;
-    background-color: lightgray;
-}
-
-.progress-bar-fill {
-    height: 12px;
-}
-
-.green {
-    background-color: limegreen;
-}
-
-.red {
-    background-color: darkred;
-}
-
-.yellow {
-    background-color: yellow;
-}
-
-.blue {
-    background-color: lightskyblue;
 }
 
 </style>
