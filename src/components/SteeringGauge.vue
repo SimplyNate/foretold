@@ -1,6 +1,6 @@
 <template>
     <div ref="barContainer" class="progress-bar-empty">
-        <div ref="bar" :class="`progress-bar-fill ${color}`">{{ text }}</div>
+        <div ref="bar" :class="`progress-bar-fill`"></div>
     </div>
 </template>
 
@@ -13,14 +13,12 @@ interface ProgressBarData {
 }
 
 export default defineComponent({
-    name: `ProgressBar`,
+    name: `SteeringGauge`,
     props: {
-        color: String,
         value: {
             type: Number,
             default: 0,
         },
-        text: String,
     },
     data(): ProgressBarData {
         return {
@@ -58,22 +56,6 @@ export default defineComponent({
 .progress-bar-fill {
     height: 12px;
     width: 0;
-}
-
-.green {
-    background-color: limegreen;
-}
-
-.red {
-    background-color: darkred;
-}
-
-.yellow {
-    background-color: yellow;
-}
-
-.blue {
-    background-color: lightskyblue;
 }
 
 </style>

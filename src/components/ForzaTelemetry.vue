@@ -2,13 +2,25 @@
     <div class="flex-container fullscreen">
         <div class="flex-item controls">
             <div class="flex-container">
-                <div class="flex-item">accelerator: {{ telemetry.accelerator }}</div>
-                <progress-bar class="flex-item" color="green" :value="telemetry.accelerator" />
+                <div class="flex-item">Accelerator</div>
+                <progress-bar class="flex-item-2" color="green" :value="telemetry.accelerator" />
             </div>
-            <div>brake: {{ telemetry.brake }}</div>
-            <div>clutch: {{ telemetry.clutch }}</div>
-            <div>handbrake: {{ telemetry.handbrake }}</div>
-            <div>steer: {{ telemetry.steer }}</div>
+            <div class="flex-container">
+                <div class="flex-item">Brake</div>
+                <progress-bar class="flex-item-2" color="red" :value="telemetry.brake" />
+            </div>
+            <div class="flex-container">
+                <div class="flex-item">Clutch</div>
+                <progress-bar class="flex-item-2" color="yellow" :value="telemetry.clutch" />
+            </div>
+            <div class="flex-container">
+                <div class="flex-item">Handbrake</div>
+                <progress-bar class="flex-item-2" color="blue" :value="telemetry.handbrake" />
+            </div>
+            <div class="flex-container">
+                <div class="flex-item">Steer</div>
+                <progress-bar class="flex-item-2" color="green" :value="telemetry.steer" />
+            </div>
         </div>
         <div class="flex-item tires">
             <div>normSuspensionTravelFl: {{ telemetry.normSuspensionTravelFl }}</div>
@@ -42,12 +54,30 @@
             <div>tireTempRr: {{ telemetry.tireTempRr }}</div>
         </div>
         <div class="flex-item power">
-            <div>currentEngineRpm: {{ telemetry.currentEngineRpm }}</div>
-            <div>gear: {{ telemetry.gear }}</div>
-            <div>speed: {{ telemetry.speed }}</div>
-            <div>power: {{ telemetry.power }}</div>
-            <div>torque: {{ telemetry.torque }}</div>
-            <div>boost: {{ telemetry.boost }}</div>
+            <div class="flex-container">
+                <div class="flex-item">Tachometer</div>
+                <progress-bar class="flex-item-2" color="green" :value="telemetry.currentEngineRpmPercent" :text="telemetry.currentEngineRpmDisplay" />
+            </div>
+            <div class="flex-container">
+                <div class="flex-item">Gear</div>
+                <div class="flex-item-2"> {{ telemetry.gear }}</div>
+            </div>
+            <div class="flex-container">
+                <div class="flex-item">Speed</div>
+                <div class="flex-item-2"> {{ telemetry.speed }} MPH</div>
+            </div>
+            <div class="flex-container">
+                <div class="flex-item">Power</div>
+                <div class="flex-item-2"> {{ telemetry.power }} HP</div>
+            </div>
+            <div class="flex-container">
+                <div class="flex-item">Torque</div>
+                <div class="flex-item-2"> {{ telemetry.torque }} N/m</div>
+            </div>
+            <div class="flex-container">
+                <div class="flex-item">Boost</div>
+                <div class="flex-item-2"> {{ telemetry.boost }}</div>
+            </div>
         </div>
     </div>
 </template>
@@ -87,11 +117,27 @@ export default defineComponent({
         ws.onmessage = (payload) => {
             this.telemetry = JSON.parse(payload.data);
             // @ts-ignore
-            this.telemetry.speed *= this.conversions.speed;
+            this.telemetry.speed = Math.floor(this.telemetry.speed * this.conversions.speed);
             // @ts-ignore
-            this.telemetry.power /= this.conversions.power;
+            this.telemetry.power /= Math.round(this.conversions.power);
             // @ts-ignore
-            this.telemetry.accelerator = this.telemetry.accelerator / 255;
+            this.telemetry.accelerator = this.telemetry.accelerator / 2.55;
+            // @ts-ignore
+            this.telemetry.steer = (this.telemetry.steer + 127) / 2.55;
+            // @ts-ignore
+            this.telemetry.brake = this.telemetry.brake / 2.55;
+            // @ts-ignore
+            this.telemetry.clutch = this.telemetry.clutch / 2.55;
+            // @ts-ignore
+            this.telemetry.handbrake = this.telemetry.handbrake / 2.55;
+            // @ts-ignore
+            this.telemetry.currentEngineRpmPercent = this.telemetry.currentEngineRpm / this.telemetry.engineMaxRpm * 100;
+            // @ts-ignore
+            this.telemetry.currentEngineRpmDisplay = Math.round(this.telemetry.currentEngineRpm);
+            // @ts-ignore
+            this.telemetry.torque = Math.round(this.telemetry.torque);
+            // @ts-ignore
+            this.telemetry.boost = this.telemetry.boost > 0 ? Math.round(this.telemetry.boost) : 0;
         }
     },
 });
@@ -111,7 +157,12 @@ export default defineComponent({
 }
 
 .flex-item {
+    flex-basis: 50px;
     flex-grow: 1;
+}
+
+.flex-item-2 {
+    flex-grow: 2;
 }
 
 </style>
