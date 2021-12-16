@@ -22,7 +22,23 @@
                 <progress-bar class="flex-item-2" color="green" :value="telemetry.steer" />
             </div>
         </div>
-        <div class="flex-item tires">
+        <div class="flex-item">
+            <div class="flex-container tires" style="margin-bottom: 4em;">
+                <div style="margin-right: 2em;">
+                    <tire :temperature="telemetry.tireTempFl" />
+                </div>
+                <div>
+                    <tire :temperature="telemetry.tireTempFr" />
+                </div>
+            </div>
+            <div class="flex-container tires">
+                <div style="margin-right: 2em;">
+                    <tire :temperature="telemetry.tireTempRl" />
+                </div>
+                <div>
+                    <tire :temperature="telemetry.tireTempRr" />
+                </div>
+            </div>
             <div>normSuspensionTravelFl: {{ telemetry.normSuspensionTravelFl }}</div>
             <div>normSuspensionTravelFr: {{ telemetry.normSuspensionTravelFr }}</div>
             <div>normSuspensionTravelRl: {{ telemetry.normSuspensionTravelRl }}</div>
@@ -87,6 +103,7 @@
 import { defineComponent } from 'vue';
 import { ForzaPacket } from '../../server/ForzaParser';
 import ProgressBar from '@/components/ProgressBar.vue';
+import Tire from '@/components/Tire.vue';
 
 interface ForzaTelemetryData {
     telemetry: ForzaPacket | null,
@@ -99,6 +116,7 @@ interface ForzaTelemetryData {
 export default defineComponent({
     name: 'ForzaTelemetry',
     components: {
+        Tire,
         ProgressBar,
     },
     data(): ForzaTelemetryData {
