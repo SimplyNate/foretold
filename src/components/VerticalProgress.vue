@@ -30,7 +30,7 @@ export default defineComponent({
     },
     computed: {
         fillColor() {
-            return this.value < 75 ? 'green' : this.value < 95 ? 'yellow' : 'red';
+            return this.value < 75 ? 'green' : this.value < 100 ? 'yellow' : 'red';
         },
     },
     watch: {

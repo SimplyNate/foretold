@@ -93,7 +93,7 @@ interface ForzaTelemetryData {
     conversions: {
         speed: number,
         power: number,
-    }
+    },
 }
 
 export default defineComponent({
