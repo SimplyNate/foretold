@@ -55,6 +55,7 @@ export default defineComponent({
 
 .progress-bar-empty {
     width: 12px;
+    height: 100px;
     background-color: lightgray;
 }
 

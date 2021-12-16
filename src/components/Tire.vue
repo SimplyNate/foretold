@@ -1,9 +1,11 @@
 <template>
-    <div :class="`tire ${tempString}`"></div>
-    <div class="slipContainer">
-        <div :class="`grip ${slipRatioString}`"></div>
-        <div :class="`grip ${slipAngleString}`" style="margin-left: 3px; margin-right: 3px;"></div>
-        <div :class="`grip ${slipCombinedString}`"></div>
+    <div class="tireContainer">
+        <div :class="`tire ${tempString}`"></div>
+        <div class="slipContainer">
+            <div :class="`grip ${slipRatioString}`"></div>
+            <div :class="`grip ${slipAngleString}`" style="margin-left: 3px; margin-right: 3px;"></div>
+            <div :class="`grip ${slipCombinedString}`"></div>
+        </div>
     </div>
 </template>
 
@@ -45,6 +47,10 @@ export default defineComponent({
     height: 100px;
     border-radius: 15%;
     border: 2px solid whitesmoke;
+}
+.tireContainer {
+    display: flex;
+    flex-direction: column;
 }
 .slipContainer {
     display: flex;

@@ -24,19 +24,31 @@
         </div>
         <div class="flex-item">
             <div class="flex-container tires" style="margin-bottom: 4em;">
-                <div style="margin-right: 2em;">
+                <div style="margin-right: 2em;" class="flex-container">
+                    <div style="margin-right: 1em;">
+                        <vertical-progress />
+                    </div>
                     <tire :temperature="telemetry.tireTempFl" />
                 </div>
                 <div>
                     <tire :temperature="telemetry.tireTempFr" />
                 </div>
+                <div style="margin-left: 1em;">
+                    <vertical-progress />
+                </div>
             </div>
             <div class="flex-container tires">
-                <div style="margin-right: 2em;">
+                <div style="margin-right: 2em;" class="flex-container">
+                    <div style="margin-right: 1em;">
+                        <vertical-progress />
+                    </div>
                     <tire :temperature="telemetry.tireTempRl" />
                 </div>
                 <div>
                     <tire :temperature="telemetry.tireTempRr" />
+                </div>
+                <div style="margin-left: 1em;">
+                    <vertical-progress />
                 </div>
             </div>
             <div>normSuspensionTravelFl: {{ telemetry.normSuspensionTravelFl }}</div>
@@ -104,6 +116,7 @@ import { defineComponent } from 'vue';
 import { ForzaPacket } from '../../server/ForzaParser';
 import ProgressBar from '@/components/ProgressBar.vue';
 import Tire from '@/components/Tire.vue';
+import VerticalProgress from '@/components/VerticalProgress.vue';
 
 interface ForzaTelemetryData {
     telemetry: ForzaPacket | null,
@@ -116,6 +129,7 @@ interface ForzaTelemetryData {
 export default defineComponent({
     name: 'ForzaTelemetry',
     components: {
+        VerticalProgress,
         Tire,
         ProgressBar,
     },
@@ -156,6 +170,14 @@ export default defineComponent({
             this.telemetry.torque = Math.round(this.telemetry.torque);
             // @ts-ignore
             this.telemetry.boost = this.telemetry.boost > 0 ? Math.round(this.telemetry.boost) : 0;
+            // @ts-ignore
+            this.telemetry.normSuspensionTravelFl *= 100;
+            // @ts-ignore
+            this.telemetry.normSuspensionTravelFr *= 100;
+            // @ts-ignore
+            this.telemetry.normSuspensionTravelRl *= 100;
+            // @ts-ignore
+            this.telemetry.normSuspensionTravelRr *= 100;
         }
     },
 });
