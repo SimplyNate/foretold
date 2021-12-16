@@ -22,8 +22,8 @@ export default defineComponent({
     },
     computed: {
         tempString() {
-            return this.temperature < 200 ? 'cold' :
-                this.temperature < 250 ? 'normal' : this.temperature < 300 ? 'warm' : 'hot';
+            return this.temperature < 160 ? 'cold' :
+                this.temperature < 210 ? 'normal' : this.temperature < 350 ? 'warm' : 'hot';
         },
         slipRatioString() {
             return this.slipRatio < .9 ? 'normal' :
@@ -70,10 +70,10 @@ export default defineComponent({
 }
 
 .warm {
-    background-color: goldenrod;
+    background-color: yellow;
 }
 
 .hot {
-    background-color: firebrick;
+    background-color: red;
 }
 </style>

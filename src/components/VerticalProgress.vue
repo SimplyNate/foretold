@@ -57,6 +57,7 @@ export default defineComponent({
     width: 12px;
     height: 100px;
     background-color: lightgray;
+    transform: rotate(180deg);
 }
 
 .progress-bar-fill {
@@ -69,7 +70,7 @@ export default defineComponent({
 }
 
 .red {
-    background-color: darkred;
+    background-color: red;
 }
 
 .yellow {

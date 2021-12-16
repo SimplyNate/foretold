@@ -51,35 +51,6 @@
                     <vertical-progress :value="telemetry.normSuspensionTravelRr" />
                 </div>
             </div>
-            <div>normSuspensionTravelFl: {{ telemetry.normSuspensionTravelFl }}</div>
-            <div>normSuspensionTravelFr: {{ telemetry.normSuspensionTravelFr }}</div>
-            <div>normSuspensionTravelRl: {{ telemetry.normSuspensionTravelRl }}</div>
-            <div>normSuspensionTravelRr: {{ telemetry.normSuspensionTravelRr }}</div>
-            <div>suspensionTravelMetersFl: {{ telemetry.suspensionTravelMetersFl }}</div>
-            <div>suspensionTravelMetersFr: {{ telemetry.suspensionTravelMetersFr }}</div>
-            <div>suspensionTravelMetersRl: {{ telemetry.suspensionTravelMetersRl }}</div>
-            <div>suspensionTravelMetersRr: {{ telemetry.suspensionTravelMetersRr }}</div>
-
-            <div>tireSlipRatioFl: {{ telemetry.tireSlipRatioFl }}</div>
-            <div>tireSlipRatioFr: {{ telemetry.tireSlipRatioFr }}</div>
-            <div>tireSlipRatioRl: {{ telemetry.tireSlipRatioRl }}</div>
-            <div>tireSlipRatioRr: {{ telemetry.tireSlipRatioRr }}</div>
-            <div>wheelRotationSpeedFl: {{ telemetry.wheelRotationSpeedFl }}</div>
-            <div>wheelRotationSpeedFr: {{ telemetry.wheelRotationSpeedFr }}</div>
-            <div>wheelRotationSpeedRl: {{ telemetry.wheelRotationSpeedRl }}</div>
-            <div>wheelRotationSpeedRr: {{ telemetry.wheelRotationSpeedRr }}</div>
-            <div>tireSlipAngleFl: {{ telemetry.tireSlipAngleFl }}</div>
-            <div>tireSlipAngleFr: {{ telemetry.tireSlipAngleFr }}</div>
-            <div>tireSlipAngleRl: {{ telemetry.tireSlipAngleRl }}</div>
-            <div>tireSlipAngleRr: {{ telemetry.tireSlipAngleRr }}</div>
-            <div>tireCombinedSlipFl: {{ telemetry.tireCombinedSlipFl }}</div>
-            <div>tireCombinedSlipFr: {{ telemetry.tireCombinedSlipFr }}</div>
-            <div>tireCombinedSlipRl: {{ telemetry.tireCombinedSlipRl }}</div>
-            <div>tireCombinedSlipRr: {{ telemetry.tireCombinedSlipRr }}</div>
-            <div>tireTempFl: {{ telemetry.tireTempFl }}</div>
-            <div>tireTempFr: {{ telemetry.tireTempFr }}</div>
-            <div>tireTempRl: {{ telemetry.tireTempRl }}</div>
-            <div>tireTempRr: {{ telemetry.tireTempRr }}</div>
         </div>
         <div class="flex-item power">
             <div class="flex-container">
@@ -100,7 +71,7 @@
             </div>
             <div class="flex-container">
                 <div class="flex-item">Torque</div>
-                <div class="flex-item-2"> {{ telemetry.torque }} N/m</div>
+                <div class="flex-item-2"> {{ telemetry.torque }} ft-lb</div>
             </div>
             <div class="flex-container">
                 <div class="flex-item">Boost</div>
@@ -123,6 +94,7 @@ interface ForzaTelemetryData {
     conversions: {
         speed: number,
         power: number,
+        torque: number,
     },
 }
 
@@ -141,6 +113,7 @@ export default defineComponent({
             conversions: {
                 speed: 2.23694, // meters per second to mph
                 power: 745.7, // watts to horsepower
+                torque: 0.73756215, // foot-pounds to newton-meter
             }
         };
     },
@@ -151,7 +124,7 @@ export default defineComponent({
             // @ts-ignore
             this.telemetry.speed = Math.floor(this.telemetry.speed * this.conversions.speed);
             // @ts-ignore
-            this.telemetry.power /= Math.round(this.conversions.power);
+            this.telemetry.power = this.telemetry.power > 0 ? Math.round(this.telemetry.power / this.conversions.power) : 0;
             // @ts-ignore
             this.telemetry.accelerator = this.telemetry.accelerator / 2.55;
             // @ts-ignore
@@ -167,7 +140,7 @@ export default defineComponent({
             // @ts-ignore
             this.telemetry.currentEngineRpmDisplay = Math.round(this.telemetry.currentEngineRpm);
             // @ts-ignore
-            this.telemetry.torque = Math.round(this.telemetry.torque);
+            this.telemetry.torque = this.telemetry.torque > 0 ? Math.round(this.telemetry.torque * this.conversions.torque) : 0;
             // @ts-ignore
             this.telemetry.boost = this.telemetry.boost > 0 ? Math.round(this.telemetry.boost) : 0;
             // @ts-ignore
