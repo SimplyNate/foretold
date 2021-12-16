@@ -26,29 +26,29 @@
             <div class="flex-container tires" style="margin-bottom: 4em;">
                 <div style="margin-right: 2em;" class="flex-container">
                     <div style="margin-right: 1em;">
-                        <vertical-progress />
+                        <vertical-progress :value="telemetry.normSuspensionTravelFl" />
                     </div>
-                    <tire :temperature="telemetry.tireTempFl" />
+                    <tire :temperature="telemetry.tireTempFl" :slip-angle="telemetry.tireSlipAngleFl" :slip-ratio="telemetry.tireSlipRatioFl" :slip-combined="telemetry.tireCombinedSlipFl" />
                 </div>
                 <div>
-                    <tire :temperature="telemetry.tireTempFr" />
+                    <tire :temperature="telemetry.tireTempFr" :slip-angle="telemetry.tireSlipAngleFr" :slip-ratio="telemetry.tireSlipRatioFr" :slip-combined="telemetry.tireCombinedSlipFr" />
                 </div>
                 <div style="margin-left: 1em;">
-                    <vertical-progress />
+                    <vertical-progress :value="telemetry.normSuspensionTravelFr" />
                 </div>
             </div>
             <div class="flex-container tires">
                 <div style="margin-right: 2em;" class="flex-container">
                     <div style="margin-right: 1em;">
-                        <vertical-progress />
+                        <vertical-progress :value="telemetry.normSuspensionTravelRl" />
                     </div>
-                    <tire :temperature="telemetry.tireTempRl" />
+                    <tire :temperature="telemetry.tireTempRl" :slip-angle="telemetry.tireSlipAngleRl" :slip-ratio="telemetry.tireSlipRatioRl" :slip-combined="telemetry.tireCombinedSlipRl" />
                 </div>
                 <div>
-                    <tire :temperature="telemetry.tireTempRr" />
+                    <tire :temperature="telemetry.tireTempRr" :slip-angle="telemetry.tireSlipAngleRr" :slip-ratio="telemetry.tireSlipRatioRr" :slip-combined="telemetry.tireCombinedSlipRr" />
                 </div>
                 <div style="margin-left: 1em;">
-                    <vertical-progress />
+                    <vertical-progress :value="telemetry.normSuspensionTravelRr" />
                 </div>
             </div>
             <div>normSuspensionTravelFl: {{ telemetry.normSuspensionTravelFl }}</div>
