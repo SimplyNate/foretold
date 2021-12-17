@@ -65,12 +65,23 @@ export default defineComponent({
 .cold {
     background-color: lightskyblue;
 }
+.cool {
+    background-color: rgba(135, 206, 250, 50%);
+}
 .normal {
     background-color: transparent;
 }
-
+.mild {
+    background-color: rgba(255, 255, 0, 50%);
+}
 .warm {
     background-color: yellow;
+}
+
+
+
+.heated {
+    background-color: orange;
 }
 
 .hot {
