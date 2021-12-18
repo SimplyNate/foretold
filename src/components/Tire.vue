@@ -1,24 +1,45 @@
 <template>
     <div class="tireContainer">
-        <div :class="`tire ${tempString}`"></div>
+        <div class="tire" ref="tire"></div>
         <div class="slipContainer">
-            <div :class="`grip ${slipRatioString}`"></div>
-            <div :class="`grip ${slipAngleString}`" style="margin-left: 3px; margin-right: 3px;"></div>
-            <div :class="`grip ${slipCombinedString}`"></div>
+            <div class="grip" ref="slipRatio"></div>
+            <div class="grip" ref="slipAngle" style="margin-left: 3px; margin-right: 3px;"></div>
+            <div class="grip" ref="slipCombined"></div>
         </div>
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from 'vue';
 
 export default defineComponent({
     name: 'Tire',
     props: {
-        temperature: Number,
-        slipRatio: Number,
-        slipAngle: Number,
-        slipCombined: Number,
+        temperature: {
+            type: Number,
+            default: 0,
+        },
+        slipRatio: {
+            type: Number,
+            default: 0,
+        },
+        slipAngle: {
+            type: Number,
+            default: 0,
+        },
+        slipCombined: {
+            type: Number,
+            default: 0,
+        },
+    },
+    data() {
+        return {
+            tempConfig: {
+                cold: 160,
+                normal: 210,
+                hot: 350,
+            }
+        };
     },
     computed: {
         tempString() {
@@ -38,6 +59,29 @@ export default defineComponent({
                 this.slipCombined < 1 ? 'warm' : 'hot';
         },
     },
+    watch: {
+        temperature() {
+            if (this.temperature > 0) {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                this.$refs.slipRatio.style.backgroundColor = this.gradient(this.temperature, 0, 100);
+            }
+        },
+        slipRatio() {
+
+        },
+        slipAngle() {
+
+        },
+        slipCombined() {
+
+        },
+    },
+    methods: {
+        gradient(value: number, min: number, max: number) {
+
+        },
+    }
 });
 </script>
 
@@ -77,9 +121,6 @@ export default defineComponent({
 .warm {
     background-color: yellow;
 }
-
-
-
 .heated {
     background-color: orange;
 }
