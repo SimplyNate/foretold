@@ -83,10 +83,36 @@ export default defineComponent({
     },
     methods: {
         gradient(value: number, min: number, max: number) {
+            /*
+            blue = 0
+            blue-green = 256
+            green = 512
+            yellow = 768
+            red = 1024
+             */
             const normalizedValue = (value - min) / (max - min);
-            let r = normalizedValue;
-            let g = 0;
-            let b = 255 - ();
+            const totalUniqueColors = 1024;
+            const colorValue = totalUniqueColors * normalizedValue;
+            let r = 0;
+            if (colorValue > 512) {
+                r = colorValue - 512;
+            }
+            r = r > 255 ? 255 : r;
+            let g;
+            if (colorValue < 768) {
+                if (colorValue > 255) {
+                    g = 255;
+                }
+                else {
+                    g = colorValue;
+                }
+            }
+            else {
+                g = 255 - (colorValue - 768);
+            }
+            const blueValue = colorValue - 256;
+            let b = 255 - (blueValue > 0 ? blueValue : 0);
+            b = b < 0 ? 0 : b;
             return `rgba(${r}, ${g}, ${b}, ${1})`;
         },
         blueGradient(value: number, min: number, max: number): string {
@@ -144,6 +170,6 @@ export default defineComponent({
 }
 
 .hot {
-    background-color: rgba(0, 0, 255, 0.99);
+    background-color: #ff0000;
 }
 </style>
