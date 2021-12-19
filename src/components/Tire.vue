@@ -90,6 +90,16 @@ export default defineComponent({
             yellow = 768
             red = 1024
              */
+            // Step 1: Create a uniform distribution between blue - green - red
+            /*
+            current distribution:
+              - blue: <= 135F
+              - cyan: 160F
+              - green (center): 185F
+              - yellow: 210F
+              - red: >= 350F
+
+             */
             const normalizedValue = (value - min) / (max - min);
             const totalUniqueColors = 1024;
             const colorValue = totalUniqueColors * normalizedValue;
@@ -122,7 +132,7 @@ export default defineComponent({
             const a = 1 / (value / (max - min));
             return `rgba(${r}, ${g}, ${b}, ${a})`;
         },
-        redGradient(value, min, max): string {
+        redGradient(value: number, min: number, max: number): string {
 
         },
     }
@@ -170,6 +180,6 @@ export default defineComponent({
 }
 
 .hot {
-    background-color: #ff0000;
+    background-color: red;
 }
 </style>
