@@ -68,7 +68,7 @@ export default defineComponent({
             if (this.temperature > 0) {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
-                this.$refs.slipRatio.style.backgroundColor = this.gradient(this.temperature, 0, this.tempConfig.cold);
+                this.$refs.slipRatio.style.backgroundColor = this.tireGradient();
             }
         },
         slipRatio() {
@@ -82,7 +82,7 @@ export default defineComponent({
         },
     },
     methods: {
-        gradient(value: number, min: number, max: number) {
+        tireGradient() {
             /*
             blue = 0
             blue-green = 256
