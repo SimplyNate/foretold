@@ -38,6 +38,10 @@ export default defineComponent({
                 cold: 160,
                 normal: 210,
                 hot: 350,
+            },
+            tractionConfig: {
+                low: 0,
+                high: 1,
             }
         };
     },
@@ -64,7 +68,7 @@ export default defineComponent({
             if (this.temperature > 0) {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
-                this.$refs.slipRatio.style.backgroundColor = this.gradient(this.temperature, 0, 100);
+                this.$refs.slipRatio.style.backgroundColor = this.gradient(this.temperature, 0, this.tempConfig.cold);
             }
         },
         slipRatio() {
@@ -79,6 +83,20 @@ export default defineComponent({
     },
     methods: {
         gradient(value: number, min: number, max: number) {
+            const normalizedValue = (value - min) / (max - min);
+            let r = normalizedValue;
+            let g = 0;
+            let b = 255 - ();
+            return `rgba(${r}, ${g}, ${b}, ${1})`;
+        },
+        blueGradient(value: number, min: number, max: number): string {
+            const r = 135;
+            const g = 206;
+            const b = 250;
+            const a = 1 / (value / (max - min));
+            return `rgba(${r}, ${g}, ${b}, ${a})`;
+        },
+        redGradient(value, min, max): string {
 
         },
     }
@@ -126,6 +144,6 @@ export default defineComponent({
 }
 
 .hot {
-    background-color: red;
+    background-color: rgba(0, 0, 255, 0.99);
 }
 </style>
