@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import {defineComponent} from 'vue';
 
 export default defineComponent({
     name: 'Tire',
@@ -88,6 +88,10 @@ export default defineComponent({
         },
     },
     methods: {
+        percentInRange(value: number, min: number, max: number): number {
+            const proportion =  (value - min) / (max - min);
+            return proportion > 1 ? 1 : proportion < 0 ? 0 : proportion;
+        },
         tireGradient() {
             /*
             blue = 0
@@ -106,7 +110,10 @@ export default defineComponent({
               - red: >= 350F
 
              */
-            const normalizedValue = (value - min) / (max - min);
+            const redNormalized = this.percentInRange(this.temperature - 185, 0, 350 - 185);
+            // FIX THIS FOR GOING UP AND DOWN
+            const greenNormalized = this.percentInRange(this.temperature - 135, 0, 185 - 135);
+            const blueNormalized = 1 / this.percentInRange(this.temperature, 135, 160)
             const totalUniqueColors = 1024;
             const colorValue = totalUniqueColors * normalizedValue;
             let r = 0;

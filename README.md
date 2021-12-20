@@ -107,3 +107,16 @@ between the UDP listener and the browser webpage.
 | 321      | normalDrivingLine        | 1      | Int8   |                                                                                     |
 | 322      | normalAiBrakeDifference  | 1      | Int8   |                                                                                     |
 | 323      | unknown4                 | 1      |        |                                                                                     |
+
+
+## Tire Temperature Documentation
+
+Semi-Slick & Slick
+
+| Color       | Lower Bound | Upper Bound | Delta    |
+|-------------|-------------|-------------|----------|
+| blue        | <160F       | 160F        | Infinity |
+| transparent | 160F        | 210F        | 50F      |
+| Yellow      | 210F        | 310F        | 100F     |
+| Orange      | 310F        | 380F        | 70F      |
+| Red         | 380F        | >380F       | Infinity |
