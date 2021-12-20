@@ -68,17 +68,23 @@ export default defineComponent({
             if (this.temperature > 0) {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
-                this.$refs.slipRatio.style.backgroundColor = this.tireGradient();
+                this.$refs.tire.style.backgroundColor = this.tireGradient();
             }
         },
         slipRatio() {
-
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            this.$refs.slipRatio.style.backgroundColor = this.gripGradient(this.slipRatio);
         },
         slipAngle() {
-
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            this.$refs.slipAngle.style.backgroundColor = this.gripGradient(this.slipAngle);
         },
         slipCombined() {
-
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            this.$refs.slipCombined.style.backgroundColor = this.gripGradient(this.slipCombined);
         },
     },
     methods: {
@@ -132,8 +138,17 @@ export default defineComponent({
             const a = 1 / (value / (max - min));
             return `rgba(${r}, ${g}, ${b}, ${a})`;
         },
-        redGradient(value: number, min: number, max: number): string {
-
+        gripGradient(value: number): string {
+            /*
+            grip distribution:
+              - green: 0        0 - 255
+              - yellow: 0.5     256 - 5
+              - red: 1
+             */
+            const g = 255 - (value >= 0.5 ? ((value - 0.5) / 0.5) * 255 : 0);
+            let r = (value * 2) * 255;
+            r = r > 255 ? 255 : r;
+            return `rgba(${r}, ${g}, 0, 1)`;
         },
     }
 });
