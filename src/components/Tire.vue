@@ -80,7 +80,7 @@ export default defineComponent({
             yellow = 768
             red = 1024
              */
-            // Step 1: Create a uniform distribution between blue - green - red
+            // Step 1: Create a uniform distribution between blue, green, red
             /*
             current distribution:
               - blue: <= 135F
@@ -170,27 +170,5 @@ export default defineComponent({
     width: 16px;
     height: 8px;
     border: 2px solid whitesmoke;
-}
-.cold {
-    background-color: lightskyblue;
-}
-.cool {
-    background-color: rgba(135, 206, 250, 50%);
-}
-.normal {
-    background-color: transparent;
-}
-.mild {
-    background-color: rgba(255, 255, 0, 50%);
-}
-.warm {
-    background-color: yellow;
-}
-.heated {
-    background-color: orange;
-}
-
-.hot {
-    background-color: red;
 }
 </style>
