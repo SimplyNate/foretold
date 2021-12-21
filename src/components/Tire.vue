@@ -90,42 +90,23 @@ export default defineComponent({
               - red: >= 350F
 
              */
-            const redNormalized = this.percentInRange(this.temperature - 185, 0, 350 - 185);
+            const redNormalized = this.percentInRange(this.temperature, 185, 210);
             // FIX THIS FOR GOING UP AND DOWN
-            let greenNormalized = this.percentInRange(this.temperature - 135, 0, 185 - 135);
+            let greenNormalized;
+            if (this.temperature > 210) {
+                greenNormalized = 1 - this.percentInRange(this.temperature, 210, 350);
+            }
+            else {
+                greenNormalized = this.percentInRange(this.temperature, 135, 185);
+            }
             if (greenNormalized > 1) {
                 greenNormalized = 1 - (greenNormalized - 1);
             }
-            const blueNormalized = 1 / this.percentInRange(this.temperature, 135, 160);
+            const blueNormalized = 1 - this.percentInRange(this.temperature, 160, 185);
             const r = 255 * redNormalized;
             const g = 255 * greenNormalized;
             const b = 255 * blueNormalized;
             return `rgba(${r}, ${g}, ${b}, ${1})`;
-            /*
-            const totalUniqueColors = 1024;
-            const colorValue = totalUniqueColors * normalizedValue;
-            let r = 0;
-            if (colorValue > 512) {
-                r = colorValue - 512;
-            }
-            r = r > 255 ? 255 : r;
-            let g;
-            if (colorValue < 768) {
-                if (colorValue > 255) {
-                    g = 255;
-                }
-                else {
-                    g = colorValue;
-                }
-            }
-            else {
-                g = 255 - (colorValue - 768);
-            }
-            const blueValue = colorValue - 256;
-            let b = 255 - (blueValue > 0 ? blueValue : 0);
-            b = b < 0 ? 0 : b;
-            return `rgba(${r}, ${g}, ${b}, ${1})`;
-             */
         },
         blueGradient(value: number, min: number, max: number): string {
             const r = 135;
