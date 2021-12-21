@@ -45,31 +45,11 @@ export default defineComponent({
             }
         };
     },
-    computed: {
-        tempString() {
-            return this.temperature < 160 ? 'cold' :
-                this.temperature < 210 ? 'normal' : this.temperature < 350 ? 'warm' : 'hot';
-        },
-        slipRatioString() {
-            return this.slipRatio < .9 ? 'normal' :
-                this.slipRatio < 1 ? 'warm' : 'hot';
-        },
-        slipAngleString() {
-            return this.slipAngle < .9 ? 'normal' :
-                this.slipAngle < 1 ? 'warm' : 'hot';
-        },
-        slipCombinedString() {
-            return this.slipCombined < .9 ? 'normal' :
-                this.slipCombined < 1 ? 'warm' : 'hot';
-        },
-    },
     watch: {
         temperature() {
-            if (this.temperature > 0) {
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                this.$refs.tire.style.backgroundColor = this.tireGradient();
-            }
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            this.$refs.tire.style.backgroundColor = this.tireGradient();
         },
         slipRatio() {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -112,8 +92,16 @@ export default defineComponent({
              */
             const redNormalized = this.percentInRange(this.temperature - 185, 0, 350 - 185);
             // FIX THIS FOR GOING UP AND DOWN
-            const greenNormalized = this.percentInRange(this.temperature - 135, 0, 185 - 135);
-            const blueNormalized = 1 / this.percentInRange(this.temperature, 135, 160)
+            let greenNormalized = this.percentInRange(this.temperature - 135, 0, 185 - 135);
+            if (greenNormalized > 1) {
+                greenNormalized = 1 - (greenNormalized - 1);
+            }
+            const blueNormalized = 1 / this.percentInRange(this.temperature, 135, 160);
+            const r = 255 * redNormalized;
+            const g = 255 * greenNormalized;
+            const b = 255 * blueNormalized;
+            return `rgba(${r}, ${g}, ${b}, ${1})`;
+            /*
             const totalUniqueColors = 1024;
             const colorValue = totalUniqueColors * normalizedValue;
             let r = 0;
@@ -137,6 +125,7 @@ export default defineComponent({
             let b = 255 - (blueValue > 0 ? blueValue : 0);
             b = b < 0 ? 0 : b;
             return `rgba(${r}, ${g}, ${b}, ${1})`;
+             */
         },
         blueGradient(value: number, min: number, max: number): string {
             const r = 135;
