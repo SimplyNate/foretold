@@ -1,28 +1,67 @@
 <template>
     <div class="flex-container fullscreen">
         <div class="flex-item controls">
-            <div class="flex-container">
-                <div class="flex-item">Accelerator</div>
-                <progress-bar class="flex-item-2" color="green" :value="telemetry.accelerator" />
-            </div>
-            <div class="flex-container">
-                <div class="flex-item">Brake</div>
-                <progress-bar class="flex-item-2" color="red" :value="telemetry.brake" />
-            </div>
-            <div class="flex-container">
-                <div class="flex-item">Clutch</div>
-                <progress-bar class="flex-item-2" color="yellow" :value="telemetry.clutch" />
-            </div>
-            <div class="flex-container">
-                <div class="flex-item">Handbrake</div>
-                <progress-bar class="flex-item-2" color="blue" :value="telemetry.handbrake" />
-            </div>
-            <div class="flex-container">
-                <div class="flex-item">Steer</div>
-                <progress-bar class="flex-item-2" color="green" :value="telemetry.steer" />
+            <div class="flex-container-column h-100">
+                <div>
+                    <h1>Inputs</h1>
+                    <div class="flex-container">
+                        <div class="flex-item">Accelerator</div>
+                        <progress-bar class="flex-item-2" color="green" :value="telemetry.accelerator" />
+                    </div>
+                    <div class="flex-container">
+                        <div class="flex-item">Brake</div>
+                        <progress-bar class="flex-item-2" color="red" :value="telemetry.brake" />
+                    </div>
+                    <div class="flex-container">
+                        <div class="flex-item">Clutch</div>
+                        <progress-bar class="flex-item-2" color="yellow" :value="telemetry.clutch" />
+                    </div>
+                    <div class="flex-container">
+                        <div class="flex-item">Handbrake</div>
+                        <progress-bar class="flex-item-2" color="blue" :value="telemetry.handbrake" />
+                    </div>
+                    <div class="flex-container">
+                        <div class="flex-item">Steer</div>
+                        <progress-bar class="flex-item-2" color="green" :value="telemetry.steer" />
+                    </div>
+                </div>
+                <div>
+                    <h1>Engine Telemetry</h1>
+                    <div class="flex-container wrap">
+                        <div class="telemetry-box">
+                            <h3>Tachometer</h3>
+                            <div class="telemetry-value">{{ telemetry.currentEngineRpmDisplay }}</div>
+                            <div class="telemetry-unit">RPM</div>
+                        </div>
+                        <div class="telemetry-box">
+                            <h3>Gear</h3>
+                            <div class="telemetry-value">{{ telemetry.gear }}</div>
+                        </div>
+                        <div class="telemetry-box">
+                            <h3>Speed</h3>
+                            <div class="telemetry-value">{{ telemetry.speed }}</div>
+                            <div class="telemetry-unit">MPH</div>
+                        </div>
+                        <div class="telemetry-box">
+                            <h3>Power</h3>
+                            <div class="telemetry-value">{{ telemetry.power }}</div>
+                            <div class="telemetry-unit">HP</div>
+                        </div>
+                        <div class="telemetry-box">
+                            <h3>Torque</h3>
+                            <div class="telemetry-value">{{ telemetry.torque }}</div>
+                            <div class="telemetry-unit">ft-lbs</div>
+                        </div>
+                        <div class="telemetry-box">
+                            <h3>Boost</h3>
+                            <div class="telemetry-value">{{ telemetry.boost }}</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="flex-item">
+            <h1>Tires and Suspension</h1>
             <div class="flex-container tires" style="margin-bottom: 4em;">
                 <div style="margin-right: 2em;" class="flex-container">
                     <div style="margin-right: 1em;">
@@ -50,32 +89,6 @@
                 <div style="margin-left: 1em;">
                     <vertical-progress :value="telemetry.normSuspensionTravelRr" />
                 </div>
-            </div>
-        </div>
-        <div class="flex-item power">
-            <div class="flex-container">
-                <div class="flex-item">Tachometer</div>
-                <progress-bar class="flex-item-2" color="green" :value="telemetry.currentEngineRpmPercent" :text="telemetry.currentEngineRpmDisplay" />
-            </div>
-            <div class="flex-container">
-                <div class="flex-item">Gear</div>
-                <div class="flex-item-2"> {{ telemetry.gear }}</div>
-            </div>
-            <div class="flex-container">
-                <div class="flex-item">Speed</div>
-                <div class="flex-item-2"> {{ telemetry.speed }} MPH</div>
-            </div>
-            <div class="flex-container">
-                <div class="flex-item">Power</div>
-                <div class="flex-item-2"> {{ telemetry.power }} HP</div>
-            </div>
-            <div class="flex-container">
-                <div class="flex-item">Torque</div>
-                <div class="flex-item-2"> {{ telemetry.torque }} ft-lb</div>
-            </div>
-            <div class="flex-container">
-                <div class="flex-item">Boost</div>
-                <div class="flex-item-2"> {{ telemetry.boost }}</div>
             </div>
         </div>
     </div>
@@ -107,9 +120,45 @@ export default defineComponent({
     },
     data(): ForzaTelemetryData {
         return {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
-            telemetry: {},
+            telemetry: {
+                speed: 0,
+                power: 0,
+                accelerator: 0,
+                steer: 0,
+                brake: 0,
+                clutch: 0,
+                handbrake: 0,
+                currentEngineRpm: 0,
+                engineMaxRpm: 1,
+                // @ts-ignore
+                currentEngineRpmPercent: 0,
+                // @ts-ignore
+                currentEngineRpmDisplay: 0,
+                torque: 0,
+                boost: 0,
+                gear: 1,
+                normSuspensionTravelFl: 0,
+                normSuspensionTravelFr: 0,
+                normSuspensionTravelRl: 0,
+                normSuspensionTravelRr: 0,
+                tireTempFl: 0,
+                tireTempFr: 0,
+                tireTempRl: 0,
+                tireTempRr: 0,
+                tireSlipAngleFl: 0,
+                tireSlipAngleFr: 0,
+                tireSlipAngleRl: 0,
+                tireSlipAngleRr: 0,
+                tireSlipRatioFl: 0,
+                tireSlipRatioFr: 0,
+                tireSlipRatioRl: 0,
+                tireSlipRatioRr: 0,
+                tireCombinedSlipFl: 0,
+                tireCombinedSlipFr: 0,
+                tireCombinedSlipRl: 0,
+                tireCombinedSlipRr: 0,
+            },
             conversions: {
                 speed: 2.23694, // meters per second to mph
                 power: 745.7, // watts to horsepower
@@ -138,7 +187,7 @@ export default defineComponent({
             // @ts-ignore
             this.telemetry.currentEngineRpmPercent = this.telemetry.currentEngineRpm / this.telemetry.engineMaxRpm * 100;
             // @ts-ignore
-            this.telemetry.currentEngineRpmDisplay = Math.round(this.telemetry.currentEngineRpm);
+            this.telemetry.currentEngineRpmDisplay = Math.floor(this.telemetry.currentEngineRpm);
             // @ts-ignore
             this.telemetry.torque = this.telemetry.torque > 0 ? Math.round(this.telemetry.torque * this.conversions.torque) : 0;
             // @ts-ignore
@@ -164,9 +213,24 @@ export default defineComponent({
     align-items: center;
 }
 
+.wrap {
+    flex-wrap: wrap;
+}
+
+.flex-container-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
 .fullscreen {
     height: 100vh;
     width: 100vw;
+}
+
+.h-100 {
+    height: 100vh;
 }
 
 .flex-item {
@@ -176,6 +240,24 @@ export default defineComponent({
 
 .flex-item-2 {
     flex-grow: 2;
+}
+
+.telemetry-box {
+    border: 1px solid ghostwhite;
+    width: 25%;
+    height: 25vh;
+    margin: 10px;
+    border-radius: 5%;
+}
+
+.telemetry-value {
+    font-weight: bold;
+    font-size: 2em;
+    padding-top: 25%;
+}
+
+.telemetry-unit {
+    margin-top: 5%;
 }
 
 </style>

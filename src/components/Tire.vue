@@ -1,6 +1,8 @@
 <template>
     <div class="tireContainer">
-        <div class="tire" ref="tire"></div>
+        <div class="tire" ref="tire">
+            {{ tempString }}F
+        </div>
         <div class="slipContainer">
             <div class="grip" ref="slipRatio"></div>
             <div class="grip" ref="slipAngle" style="margin-left: 3px; margin-right: 3px;"></div>
@@ -32,18 +34,10 @@ export default defineComponent({
             default: 0,
         },
     },
-    data() {
-        return {
-            tempConfig: {
-                cold: 160,
-                normal: 210,
-                hot: 350,
-            },
-            tractionConfig: {
-                low: 0,
-                high: 1,
-            }
-        };
+    computed: {
+        tempString() {
+            return Math.floor(this.temperature);
+        },
     },
     watch: {
         temperature() {
@@ -80,7 +74,6 @@ export default defineComponent({
             yellow = 768
             red = 1024
              */
-            // Step 1: Create a uniform distribution between blue, green, red
             /*
             current distribution:
               - blue: <= 135F
@@ -88,7 +81,6 @@ export default defineComponent({
               - green (center): 185F
               - yellow: 210F
               - red: >= 350F
-
              */
             const redNormalized = this.percentInRange(this.temperature, 185, 210);
             // FIX THIS FOR GOING UP AND DOWN
