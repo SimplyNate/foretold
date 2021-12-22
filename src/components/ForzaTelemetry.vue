@@ -63,21 +63,21 @@
         <div class="flex-item">
             <h1>Tires and Suspension</h1>
             <div class="flex-container tires" style="margin-bottom: 4em;">
-                <div style="margin-right: 2em;" class="flex-container h-25">
+                <div style="margin-right: 2em;" class="flex-container h-25 tire-width">
                     <vertical-progress :value="telemetry.normSuspensionTravelFl" style="margin-right: 2em;"/>
                     <tire :temperature="telemetry.tireTempFl" :slip-angle="telemetry.tireSlipAngleFl" :slip-ratio="telemetry.tireSlipRatioFl" :slip-combined="telemetry.tireCombinedSlipFl" />
                 </div>
-                <div style="margin-left: 2em;" class="flex-container h-25">
+                <div style="margin-left: 2em;" class="flex-container h-25 tire-width">
                     <tire :temperature="telemetry.tireTempFr" :slip-angle="telemetry.tireSlipAngleFr" :slip-ratio="telemetry.tireSlipRatioFr" :slip-combined="telemetry.tireCombinedSlipFr" />
                     <vertical-progress :value="telemetry.normSuspensionTravelFr" style="margin-left: 2em;"/>
                 </div>
             </div>
             <div class="flex-container tires">
-                <div style="margin-right: 2em;" class="flex-container h-25">
+                <div style="margin-right: 2em;" class="flex-container h-25 tire-width">
                     <vertical-progress :value="telemetry.normSuspensionTravelRl" style="margin-right: 2em;"/>
                     <tire :temperature="telemetry.tireTempRl" :slip-angle="telemetry.tireSlipAngleRl" :slip-ratio="telemetry.tireSlipRatioRl" :slip-combined="telemetry.tireCombinedSlipRl" />
                 </div>
-                <div style="margin-left: 2em;" class="flex-container h-25">
+                <div style="margin-left: 2em;" class="flex-container h-25 tire-width">
                     <tire :temperature="telemetry.tireTempRr" :slip-angle="telemetry.tireSlipAngleRr" :slip-ratio="telemetry.tireSlipRatioRr" :slip-combined="telemetry.tireCombinedSlipRr" />
                     <vertical-progress :value="telemetry.normSuspensionTravelRr" style="margin-left: 2em;"/>
                 </div>
@@ -227,6 +227,10 @@ export default defineComponent({
 
 .h-25 {
     height: 25vh;
+}
+
+.tire-width {
+    width: 18vh;
 }
 
 .flex-item {

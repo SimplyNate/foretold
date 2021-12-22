@@ -1,8 +1,6 @@
 <template>
     <div class="tireContainer">
-        <div class="tire" ref="tire">
-            {{ tempString }}F
-        </div>
+        <div class="tire" ref="tire"></div>
         <div class="slipContainer">
             <div class="grip" ref="slipRatio"></div>
             <div class="grip" ref="slipAngle" style="margin-left: 3px; margin-right: 3px;"></div>
@@ -125,22 +123,25 @@ export default defineComponent({
 
 <style scoped>
 .tire {
-    width: 60px;
-    height: 100px;
+    width: 100%;
+    height: 100%;
     border-radius: 15%;
     border: 2px solid whitesmoke;
 }
 .tireContainer {
+    height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
 }
 .slipContainer {
+    width: 100%;
     display: flex;
     flex-direction: row;
     margin-top:2px;
 }
 .grip {
-    width: 16px;
+    width: 33%;
     height: 8px;
     border: 2px solid whitesmoke;
 }
