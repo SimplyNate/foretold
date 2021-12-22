@@ -63,31 +63,23 @@
         <div class="flex-item">
             <h1>Tires and Suspension</h1>
             <div class="flex-container tires" style="margin-bottom: 4em;">
-                <div style="margin-right: 2em;" class="flex-container">
-                    <div style="margin-right: 1em;">
-                        <vertical-progress :value="telemetry.normSuspensionTravelFl" />
-                    </div>
+                <div style="margin-right: 2em;" class="flex-container h-25">
+                    <vertical-progress :value="telemetry.normSuspensionTravelFl" style="margin-right: 2em;"/>
                     <tire :temperature="telemetry.tireTempFl" :slip-angle="telemetry.tireSlipAngleFl" :slip-ratio="telemetry.tireSlipRatioFl" :slip-combined="telemetry.tireCombinedSlipFl" />
                 </div>
-                <div>
+                <div style="margin-left: 2em;" class="flex-container h-25">
                     <tire :temperature="telemetry.tireTempFr" :slip-angle="telemetry.tireSlipAngleFr" :slip-ratio="telemetry.tireSlipRatioFr" :slip-combined="telemetry.tireCombinedSlipFr" />
-                </div>
-                <div style="margin-left: 1em;">
-                    <vertical-progress :value="telemetry.normSuspensionTravelFr" />
+                    <vertical-progress :value="telemetry.normSuspensionTravelFr" style="margin-left: 2em;"/>
                 </div>
             </div>
             <div class="flex-container tires">
-                <div style="margin-right: 2em;" class="flex-container">
-                    <div style="margin-right: 1em;">
-                        <vertical-progress :value="telemetry.normSuspensionTravelRl" />
-                    </div>
+                <div style="margin-right: 2em;" class="flex-container h-25">
+                    <vertical-progress :value="telemetry.normSuspensionTravelRl" style="margin-right: 2em;"/>
                     <tire :temperature="telemetry.tireTempRl" :slip-angle="telemetry.tireSlipAngleRl" :slip-ratio="telemetry.tireSlipRatioRl" :slip-combined="telemetry.tireCombinedSlipRl" />
                 </div>
-                <div>
+                <div style="margin-left: 2em;" class="flex-container h-25">
                     <tire :temperature="telemetry.tireTempRr" :slip-angle="telemetry.tireSlipAngleRr" :slip-ratio="telemetry.tireSlipRatioRr" :slip-combined="telemetry.tireCombinedSlipRr" />
-                </div>
-                <div style="margin-left: 1em;">
-                    <vertical-progress :value="telemetry.normSuspensionTravelRr" />
+                    <vertical-progress :value="telemetry.normSuspensionTravelRr" style="margin-left: 2em;"/>
                 </div>
             </div>
         </div>
@@ -231,6 +223,10 @@ export default defineComponent({
 
 .h-100 {
     height: 100vh;
+}
+
+.h-25 {
+    height: 25vh;
 }
 
 .flex-item {

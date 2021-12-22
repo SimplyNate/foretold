@@ -55,7 +55,7 @@ export default defineComponent({
 
 .progress-bar-empty {
     width: 12px;
-    height: 100px;
+    height: 100%;
     background-color: lightgray;
     transform: rotate(180deg);
 }
