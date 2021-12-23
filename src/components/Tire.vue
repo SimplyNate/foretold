@@ -6,6 +6,11 @@
             <div class="grip" ref="slipAngle" style="margin-left: 3px; margin-right: 3px;"></div>
             <div class="grip" ref="slipCombined"></div>
         </div>
+        <div class="slipContainer">
+            <div class="traction-label">SR</div>
+            <div class="traction-label">SA</div>
+            <div class="traction-label">SC</div>
+        </div>
     </div>
 </template>
 
@@ -144,5 +149,8 @@ export default defineComponent({
     width: 33%;
     height: 8px;
     border: 2px solid whitesmoke;
+}
+.traction-label {
+    width: 33%;
 }
 </style>

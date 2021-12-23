@@ -1,86 +1,101 @@
 <template>
-    <div class="flex-container fullscreen">
-        <div class="flex-item controls">
-            <div class="flex-container-column h-100">
-                <div>
-                    <h1>Inputs</h1>
-                    <div class="flex-container">
-                        <div class="flex-item">Accelerator</div>
-                        <progress-bar class="flex-item-2" color="green" :value="telemetry.accelerator" />
-                    </div>
-                    <div class="flex-container">
-                        <div class="flex-item">Brake</div>
-                        <progress-bar class="flex-item-2" color="red" :value="telemetry.brake" />
-                    </div>
-                    <div class="flex-container">
-                        <div class="flex-item">Clutch</div>
-                        <progress-bar class="flex-item-2" color="yellow" :value="telemetry.clutch" />
-                    </div>
-                    <div class="flex-container">
-                        <div class="flex-item">Handbrake</div>
-                        <progress-bar class="flex-item-2" color="blue" :value="telemetry.handbrake" />
-                    </div>
-                    <div class="flex-container">
-                        <div class="flex-item">Steer</div>
-                        <progress-bar class="flex-item-2" color="green" :value="telemetry.steer" />
+    <div>
+        <div v-if="active">
+            <div class="flex-container fullscreen">
+                <div class="flex-item controls">
+                    <div class="flex-container-column h-100">
+                        <div>
+                            <h1>Inputs</h1>
+                            <div style="padding-right: 10%">
+                                <div class="flex-container">
+                                    <div class="flex-item">Accelerator</div>
+                                    <progress-bar class="flex-item-2" color="green" :value="telemetry.accelerator" />
+                                </div>
+                                <div class="flex-container">
+                                    <div class="flex-item">Brake</div>
+                                    <progress-bar class="flex-item-2" color="red" :value="telemetry.brake" />
+                                </div>
+                                <div class="flex-container">
+                                    <div class="flex-item">Clutch</div>
+                                    <progress-bar class="flex-item-2" color="yellow" :value="telemetry.clutch" />
+                                </div>
+                                <div class="flex-container">
+                                    <div class="flex-item">Handbrake</div>
+                                    <progress-bar class="flex-item-2" color="blue" :value="telemetry.handbrake" />
+                                </div>
+                                <div class="flex-container">
+                                    <div class="flex-item">Steer</div>
+                                    <progress-bar class="flex-item-2" color="green" :value="telemetry.steer" />
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h1>Engine Telemetry</h1>
+                            <div class="flex-container wrap">
+                                <div class="telemetry-box">
+                                    <h3>Tachometer</h3>
+                                    <div class="telemetry-value">{{ telemetry.currentEngineRpmDisplay }}</div>
+                                    <div class="telemetry-unit">RPM</div>
+                                </div>
+                                <div class="telemetry-box">
+                                    <h3>Gear</h3>
+                                    <div class="telemetry-value">{{ telemetry.gear }}</div>
+                                </div>
+                                <div class="telemetry-box">
+                                    <h3>Speed</h3>
+                                    <div class="telemetry-value">{{ telemetry.speed }}</div>
+                                    <div class="telemetry-unit">MPH</div>
+                                </div>
+                                <div class="telemetry-box">
+                                    <h3>Power</h3>
+                                    <div class="telemetry-value">{{ telemetry.power }}</div>
+                                    <div class="telemetry-unit">HP</div>
+                                </div>
+                                <div class="telemetry-box">
+                                    <h3>Torque</h3>
+                                    <div class="telemetry-value">{{ telemetry.torque }}</div>
+                                    <div class="telemetry-unit">ft-lbs</div>
+                                </div>
+                                <div class="telemetry-box">
+                                    <h3>Boost</h3>
+                                    <div class="telemetry-value">{{ telemetry.boost }}</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div>
-                    <h1>Engine Telemetry</h1>
-                    <div class="flex-container wrap">
-                        <div class="telemetry-box">
-                            <h3>Tachometer</h3>
-                            <div class="telemetry-value">{{ telemetry.currentEngineRpmDisplay }}</div>
-                            <div class="telemetry-unit">RPM</div>
+                <div class="flex-item">
+                    <h1>Tires and Suspension</h1>
+                    <div class="flex-container tires" style="margin-bottom: 4em;">
+                        <div style="margin-right: 2em;" class="flex-container h-25 tire-width">
+                            <vertical-progress :value="telemetry.normSuspensionTravelFl" style="margin-right: 2em;"/>
+                            <tire :temperature="telemetry.tireTempFl" :slip-angle="telemetry.tireSlipAngleFl" :slip-ratio="telemetry.tireSlipRatioFl" :slip-combined="telemetry.tireCombinedSlipFl" />
                         </div>
-                        <div class="telemetry-box">
-                            <h3>Gear</h3>
-                            <div class="telemetry-value">{{ telemetry.gear }}</div>
+                        <div style="margin-left: 2em;" class="flex-container h-25 tire-width">
+                            <tire :temperature="telemetry.tireTempFr" :slip-angle="telemetry.tireSlipAngleFr" :slip-ratio="telemetry.tireSlipRatioFr" :slip-combined="telemetry.tireCombinedSlipFr" />
+                            <vertical-progress :value="telemetry.normSuspensionTravelFr" style="margin-left: 2em;"/>
                         </div>
-                        <div class="telemetry-box">
-                            <h3>Speed</h3>
-                            <div class="telemetry-value">{{ telemetry.speed }}</div>
-                            <div class="telemetry-unit">MPH</div>
+                    </div>
+                    <div class="flex-container tires">
+                        <div style="margin-right: 2em;" class="flex-container h-25 tire-width">
+                            <vertical-progress :value="telemetry.normSuspensionTravelRl" style="margin-right: 2em;"/>
+                            <tire :temperature="telemetry.tireTempRl" :slip-angle="telemetry.tireSlipAngleRl" :slip-ratio="telemetry.tireSlipRatioRl" :slip-combined="telemetry.tireCombinedSlipRl" />
                         </div>
-                        <div class="telemetry-box">
-                            <h3>Power</h3>
-                            <div class="telemetry-value">{{ telemetry.power }}</div>
-                            <div class="telemetry-unit">HP</div>
-                        </div>
-                        <div class="telemetry-box">
-                            <h3>Torque</h3>
-                            <div class="telemetry-value">{{ telemetry.torque }}</div>
-                            <div class="telemetry-unit">ft-lbs</div>
-                        </div>
-                        <div class="telemetry-box">
-                            <h3>Boost</h3>
-                            <div class="telemetry-value">{{ telemetry.boost }}</div>
+                        <div style="margin-left: 2em;" class="flex-container h-25 tire-width">
+                            <tire :temperature="telemetry.tireTempRr" :slip-angle="telemetry.tireSlipAngleRr" :slip-ratio="telemetry.tireSlipRatioRr" :slip-combined="telemetry.tireCombinedSlipRr" />
+                            <vertical-progress :value="telemetry.normSuspensionTravelRr" style="margin-left: 2em;"/>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="flex-item">
-            <h1>Tires and Suspension</h1>
-            <div class="flex-container tires" style="margin-bottom: 4em;">
-                <div style="margin-right: 2em;" class="flex-container h-25 tire-width">
-                    <vertical-progress :value="telemetry.normSuspensionTravelFl" style="margin-right: 2em;"/>
-                    <tire :temperature="telemetry.tireTempFl" :slip-angle="telemetry.tireSlipAngleFl" :slip-ratio="telemetry.tireSlipRatioFl" :slip-combined="telemetry.tireCombinedSlipFl" />
-                </div>
-                <div style="margin-left: 2em;" class="flex-container h-25 tire-width">
-                    <tire :temperature="telemetry.tireTempFr" :slip-angle="telemetry.tireSlipAngleFr" :slip-ratio="telemetry.tireSlipRatioFr" :slip-combined="telemetry.tireCombinedSlipFr" />
-                    <vertical-progress :value="telemetry.normSuspensionTravelFr" style="margin-left: 2em;"/>
-                </div>
-            </div>
-            <div class="flex-container tires">
-                <div style="margin-right: 2em;" class="flex-container h-25 tire-width">
-                    <vertical-progress :value="telemetry.normSuspensionTravelRl" style="margin-right: 2em;"/>
-                    <tire :temperature="telemetry.tireTempRl" :slip-angle="telemetry.tireSlipAngleRl" :slip-ratio="telemetry.tireSlipRatioRl" :slip-combined="telemetry.tireCombinedSlipRl" />
-                </div>
-                <div style="margin-left: 2em;" class="flex-container h-25 tire-width">
-                    <tire :temperature="telemetry.tireTempRr" :slip-angle="telemetry.tireSlipAngleRr" :slip-ratio="telemetry.tireSlipRatioRr" :slip-combined="telemetry.tireCombinedSlipRr" />
-                    <vertical-progress :value="telemetry.normSuspensionTravelRr" style="margin-left: 2em;"/>
-                </div>
+        <div class="flex-container fullscreen" v-else>
+            <div  class="flex-item">
+                <h1 style="font-size: 5em;">Foretold</h1>
+                <h2>A Forza Telemetry Dashboard</h2>
+                <p>by Simply Nate</p>
+                <p style="margin-top: 10vh;">Please wait for a connection to the backend component.</p>
+                <button @click="bypassSplashScreen">Let me in</button>
             </div>
         </div>
     </div>
@@ -101,6 +116,7 @@ interface ForzaTelemetryData {
         power: number,
         torque: number,
     },
+    active: boolean,
 }
 
 export default defineComponent({
@@ -155,11 +171,15 @@ export default defineComponent({
                 speed: 2.23694, // meters per second to mph
                 power: 745.7, // watts to horsepower
                 torque: 0.73756215, // foot-pounds to newton-meter
-            }
+            },
+            active: false,
         };
     },
     mounted() {
         const ws = new WebSocket('ws://localhost:3001');
+        ws.onopen = () => {
+            this.active = true;
+        };
         ws.onmessage = (payload) => {
             this.telemetry = JSON.parse(payload.data);
             // @ts-ignore
@@ -192,8 +212,13 @@ export default defineComponent({
             this.telemetry.normSuspensionTravelRl *= 100;
             // @ts-ignore
             this.telemetry.normSuspensionTravelRr *= 100;
-        }
+        };
     },
+    methods: {
+        bypassSplashScreen() {
+            this.active = true;
+        },
+    }
 });
 </script>
 
