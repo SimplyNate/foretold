@@ -36,11 +36,54 @@ export default defineComponent({
             type: Number,
             default: 0,
         },
+        compound: {
+            type: String,
+            default: 'Semi-Slick/Slick',
+        }
     },
     computed: {
         tempString() {
             return Math.floor(this.temperature);
         },
+        tireCompoundId() {
+            return this.compound === 'Semi-Slick/Slick' ? 'semiSlick' : 'other';
+        },
+    },
+    data() {
+        return {
+            semiSlick: {
+                blue: {
+                    min: 160,
+                    max: 185,
+                },
+                green: {
+                    minUp: 135,
+                    maxUp: 185,
+                    minDown: 210,
+                    maxDown: 350,
+                },
+                red: {
+                    min: 185,
+                    max: 210,
+                }
+            },
+            other: {
+                blue: {
+                    min: 120,
+                    max: 155,
+                },
+                green: {
+                    minUp: 100,
+                    maxUp: 120,
+                    minDown: 230,
+                    maxDown: 320,
+                },
+                red: {
+                    min: 155,
+                    max: 210,
+                },
+            },
+        };
     },
     watch: {
         temperature() {
@@ -70,34 +113,18 @@ export default defineComponent({
             return proportion > 1 ? 1 : proportion < 0 ? 0 : proportion;
         },
         tireGradient() {
-            /*
-            blue = 0
-            blue-green = 256
-            green = 512
-            yellow = 768
-            red = 1024
-             */
-            /*
-            current distribution:
-              - blue: <= 135F
-              - cyan: 160F
-              - green (center): 185F
-              - yellow: 210F
-              - red: >= 350F
-             */
-            const redNormalized = this.percentInRange(this.temperature, 185, 210);
-            // FIX THIS FOR GOING UP AND DOWN
+            const redNormalized = this.percentInRange(this.temperature, this[this.tireCompoundId].red.min, this[this.tireCompoundId].red.max);
             let greenNormalized;
-            if (this.temperature > 210) {
-                greenNormalized = 1 - this.percentInRange(this.temperature, 210, 350);
+            if (this.temperature > this[this.tireCompoundId].red.max) {
+                greenNormalized = 1 - this.percentInRange(this.temperature, this[this.tireCompoundId].green.minDown, this[this.tireCompoundId].green.maxDown);
             }
             else {
-                greenNormalized = this.percentInRange(this.temperature, 135, 185);
+                greenNormalized = this.percentInRange(this.temperature, this[this.tireCompoundId].green.minUp, this[this.tireCompoundId].green.maxUp);
             }
-            if (greenNormalized > 1) {
-                greenNormalized = 1 - (greenNormalized - 1);
-            }
-            const blueNormalized = 1 - this.percentInRange(this.temperature, 160, 185);
+            // if (greenNormalized > 1) {
+            //     greenNormalized = 1 - (greenNormalized - 1);
+            // }
+            const blueNormalized = 1 - this.percentInRange(this.temperature, this[this.tireCompoundId].blue.min, this[this.tireCompoundId].blue.max);
             const r = 255 * redNormalized;
             const g = 255 * greenNormalized;
             const b = 255 * blueNormalized;

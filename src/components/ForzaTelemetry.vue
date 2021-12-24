@@ -66,23 +66,30 @@
                 </div>
                 <div class="flex-item">
                     <h1>Tires and Suspension</h1>
+                    <div style="margin: 1em;">
+                        <label style="margin-right: 0.5em;">Tire Compound:</label>
+                        <select v-model="tireCompound">
+                            <option>Semi-Slick/Slick</option>
+                            <option>Everything Else</option>
+                        </select>
+                    </div>
                     <div class="flex-container tires" style="margin-bottom: 4em;">
                         <div style="margin-right: 2em;" class="flex-container h-25 tire-width">
                             <vertical-progress :value="telemetry.normSuspensionTravelFl" style="margin-right: 2em;"/>
-                            <tire :temperature="telemetry.tireTempFl" :slip-angle="telemetry.tireSlipAngleFl" :slip-ratio="telemetry.tireSlipRatioFl" :slip-combined="telemetry.tireCombinedSlipFl" />
+                            <tire :compound="tireCompound" :temperature="telemetry.tireTempFl" :slip-angle="telemetry.tireSlipAngleFl" :slip-ratio="telemetry.tireSlipRatioFl" :slip-combined="telemetry.tireCombinedSlipFl" />
                         </div>
                         <div style="margin-left: 2em;" class="flex-container h-25 tire-width">
-                            <tire :temperature="telemetry.tireTempFr" :slip-angle="telemetry.tireSlipAngleFr" :slip-ratio="telemetry.tireSlipRatioFr" :slip-combined="telemetry.tireCombinedSlipFr" />
+                            <tire :compound="tireCompound" :temperature="telemetry.tireTempFr" :slip-angle="telemetry.tireSlipAngleFr" :slip-ratio="telemetry.tireSlipRatioFr" :slip-combined="telemetry.tireCombinedSlipFr" />
                             <vertical-progress :value="telemetry.normSuspensionTravelFr" style="margin-left: 2em;"/>
                         </div>
                     </div>
                     <div class="flex-container tires">
                         <div style="margin-right: 2em;" class="flex-container h-25 tire-width">
                             <vertical-progress :value="telemetry.normSuspensionTravelRl" style="margin-right: 2em;"/>
-                            <tire :temperature="telemetry.tireTempRl" :slip-angle="telemetry.tireSlipAngleRl" :slip-ratio="telemetry.tireSlipRatioRl" :slip-combined="telemetry.tireCombinedSlipRl" />
+                            <tire :compound="tireCompound" :temperature="telemetry.tireTempRl" :slip-angle="telemetry.tireSlipAngleRl" :slip-ratio="telemetry.tireSlipRatioRl" :slip-combined="telemetry.tireCombinedSlipRl" />
                         </div>
                         <div style="margin-left: 2em;" class="flex-container h-25 tire-width">
-                            <tire :temperature="telemetry.tireTempRr" :slip-angle="telemetry.tireSlipAngleRr" :slip-ratio="telemetry.tireSlipRatioRr" :slip-combined="telemetry.tireCombinedSlipRr" />
+                            <tire :compound="tireCompound" :temperature="telemetry.tireTempRr" :slip-angle="telemetry.tireSlipAngleRr" :slip-ratio="telemetry.tireSlipRatioRr" :slip-combined="telemetry.tireCombinedSlipRr" />
                             <vertical-progress :value="telemetry.normSuspensionTravelRr" style="margin-left: 2em;"/>
                         </div>
                     </div>
@@ -95,7 +102,7 @@
                 <h2>A Forza Telemetry Dashboard</h2>
                 <p>by Simply Nate</p>
                 <p style="margin-top: 10vh;">Please wait for a connection to the backend component.</p>
-                <button @click="bypassSplashScreen">Let me in</button>
+                <button class="button" @click="bypassSplashScreen">Let me in</button>
             </div>
         </div>
     </div>
@@ -117,6 +124,7 @@ interface ForzaTelemetryData {
         torque: number,
     },
     active: boolean,
+    tireCompound: string,
 }
 
 export default defineComponent({
@@ -173,6 +181,7 @@ export default defineComponent({
                 torque: 0.73756215, // foot-pounds to newton-meter
             },
             active: false,
+            tireCompound: 'Semi-Slick/Slick',
         };
     },
     mounted() {
@@ -283,6 +292,12 @@ export default defineComponent({
 
 .telemetry-unit {
     margin-top: 5%;
+}
+
+.button {
+    font-size: 1.3em;
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    padding: 0.5em;
 }
 
 </style>

@@ -113,10 +113,17 @@ between the UDP listener and the browser webpage.
 
 Semi-Slick & Slick
 
-| Color       | Lower Bound | Upper Bound | Delta    |
-|-------------|-------------|-------------|----------|
-| blue        | <160F       | 160F        | Infinity |
-| transparent | 160F        | 210F        | 50F      |
-| Yellow      | 210F        | 310F        | 100F     |
-| Orange      | 310F        | 380F        | 70F      |
-| Red         | 380F        | >380F       | Infinity |
+| Color  | Lower Bound | Upper Bound |
+|--------|-------------|-------------|
+| blue   | <160F       | 160F        |
+| green  | 160F        | 210F        |
+| red    | 350F        | >350F       |
+
+
+All other tires
+
+| Color  | Lower Bound | Upper Bound |
+|--------|-------------|-------------|
+| blue   | <120F       | 120F        |
+| green  | 120F        | 180F        |
+| red    | 320F        | >320F       |
