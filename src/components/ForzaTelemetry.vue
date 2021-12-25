@@ -185,47 +185,53 @@ export default defineComponent({
         };
     },
     mounted() {
-        const ws = new WebSocket('ws://localhost:3001');
-        ws.onopen = () => {
-            this.active = true;
-        };
-        ws.onmessage = (payload) => {
-            this.telemetry = JSON.parse(payload.data);
-            // @ts-ignore
-            this.telemetry.speed = Math.floor(this.telemetry.speed * this.conversions.speed);
-            // @ts-ignore
-            this.telemetry.power = this.telemetry.power > 0 ? Math.round(this.telemetry.power / this.conversions.power) : 0;
-            // @ts-ignore
-            this.telemetry.accelerator = this.telemetry.accelerator / 2.55;
-            // @ts-ignore
-            this.telemetry.steer = (this.telemetry.steer + 127) / 2.55;
-            // @ts-ignore
-            this.telemetry.brake = this.telemetry.brake / 2.55;
-            // @ts-ignore
-            this.telemetry.clutch = this.telemetry.clutch / 2.55;
-            // @ts-ignore
-            this.telemetry.handbrake = this.telemetry.handbrake / 2.55;
-            // @ts-ignore
-            this.telemetry.currentEngineRpmPercent = this.telemetry.currentEngineRpm / this.telemetry.engineMaxRpm * 100;
-            // @ts-ignore
-            this.telemetry.currentEngineRpmDisplay = Math.floor(this.telemetry.currentEngineRpm);
-            // @ts-ignore
-            this.telemetry.torque = this.telemetry.torque > 0 ? Math.round(this.telemetry.torque * this.conversions.torque) : 0;
-            // @ts-ignore
-            this.telemetry.boost = this.telemetry.boost > 0 ? Math.round(this.telemetry.boost) : 0;
-            // @ts-ignore
-            this.telemetry.normSuspensionTravelFl *= 100;
-            // @ts-ignore
-            this.telemetry.normSuspensionTravelFr *= 100;
-            // @ts-ignore
-            this.telemetry.normSuspensionTravelRl *= 100;
-            // @ts-ignore
-            this.telemetry.normSuspensionTravelRr *= 100;
-        };
+        this.connect();
     },
     methods: {
         bypassSplashScreen() {
             this.active = true;
+        },
+        connect() {
+            const ws = new WebSocket('ws://localhost:3001');
+            ws.onopen = () => this.active = true;
+            ws.onmessage = (payload) => {
+                this.telemetry = JSON.parse(payload.data);
+                // @ts-ignore
+                this.telemetry.speed = Math.floor(this.telemetry.speed * this.conversions.speed);
+                // @ts-ignore
+                this.telemetry.power = this.telemetry.power > 0 ? Math.round(this.telemetry.power / this.conversions.power) : 0;
+                // @ts-ignore
+                this.telemetry.accelerator = this.telemetry.accelerator / 2.55;
+                // @ts-ignore
+                this.telemetry.steer = (this.telemetry.steer + 127) / 2.55;
+                // @ts-ignore
+                this.telemetry.brake = this.telemetry.brake / 2.55;
+                // @ts-ignore
+                this.telemetry.clutch = this.telemetry.clutch / 2.55;
+                // @ts-ignore
+                this.telemetry.handbrake = this.telemetry.handbrake / 2.55;
+                // @ts-ignore
+                this.telemetry.currentEngineRpmPercent = this.telemetry.currentEngineRpm / this.telemetry.engineMaxRpm * 100;
+                // @ts-ignore
+                this.telemetry.currentEngineRpmDisplay = Math.floor(this.telemetry.currentEngineRpm);
+                // @ts-ignore
+                this.telemetry.torque = this.telemetry.torque > 0 ? Math.round(this.telemetry.torque * this.conversions.torque) : 0;
+                // @ts-ignore
+                this.telemetry.boost = this.telemetry.boost > 0 ? Math.round(this.telemetry.boost) : 0;
+                // @ts-ignore
+                this.telemetry.normSuspensionTravelFl *= 100;
+                // @ts-ignore
+                this.telemetry.normSuspensionTravelFr *= 100;
+                // @ts-ignore
+                this.telemetry.normSuspensionTravelRl *= 100;
+                // @ts-ignore
+                this.telemetry.normSuspensionTravelRr *= 100;
+            };
+            ws.onclose = () => this.active = false;
+            ws.onerror = () => {
+                this.active = false;
+                console.log('Failed to connect');
+            }
         },
     }
 });
