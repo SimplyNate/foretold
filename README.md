@@ -1,6 +1,6 @@
 # foretold
 
-Simple Forza Horizon 5 telemetry visualizer.
+Simple Forza Horizon 5 telemetry visualizer. Built with NodeJS, Fastify, Vue 3, and Websockets.
 
 ## Features  
 * Input meters for Acceleration, Brakes, Clutch, Handbrake, and Steering
@@ -19,13 +19,19 @@ individually tracked for each tire
 2. Navigate to the cloned repository in a terminal.
 3. Run `npm install`
 4. Run `npm run build`
+5. Start Forza Horizon 5
+6. Go to Options > Hud and Gameplay and scroll to the bottom of the menu
+7. Switch `DATA OUT` to `ON`
+8. Set `DATA OUT IP ADDRESS` to `127.0.0.1`
+9. Set `DATA OUT IP PORT` to `5300`
 
 ## Usage  
+In the same terminal that ran the `install` and `build` script above, run:  
 `npm run listen`  
 
-This starts a listener for Forza's UDP telemetry data, starts a Fastify server, and automatically
-open the UI in a browser. When the listener detects Forza packets, it will open a WebSocket server
-between the UDP listener and the browser webpage.
+This starts a listener for Forza's UDP telemetry data, starts a Fastify server on `port 3000`, and automatically
+open the UI in a browser. The Fastify server will also start a Websocket server on `port 3001`, which the browser page
+will connect to.
 
 # Forza Telemetry Documentation  
 
