@@ -180,6 +180,21 @@ export default defineComponent({
                 power: 745.7, // watts to horsepower
                 torque: 0.73756215, // foot-pounds to newton-meter
             },
+            conversionOptions: ['metric', 'imperial'],
+            speed: {
+                kph: 3.6,
+                mph: 2.23694,
+                meters: 1,
+            },
+            power: {
+                watts: 1,
+                horsepower: 745.7,
+                ps: 756.042859,
+            },
+            torque: {
+                Nm: 1,
+                ftLbs: 0.73756216,
+            },
             active: false,
             tireCompound: 'Semi-Slick/Slick',
         };
@@ -230,7 +245,6 @@ export default defineComponent({
             ws.onclose = () => this.active = false;
             ws.onerror = () => {
                 this.active = false;
-                console.log('Failed to connect');
             }
         },
     }
