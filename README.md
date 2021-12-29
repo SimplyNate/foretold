@@ -2,14 +2,27 @@
 
 Simple Forza Horizon 5 telemetry visualizer.
 
+## Features  
+* Input meters for Acceleration, Brakes, Clutch, Handbrake, and Steering
+* Engine telemetry including current Tachometer, Speedometer, Gear, Power, Torque, and Boost readouts
+* Continuous tire temperature gradient modeled after Forza's in-game gradient from blue (cold) to red (hot)
+* Selectable tire compound that changes temperature gradients
+* Continuous grip gradients from green (full grip) to red (loss of grip). Slip Ratio, Slip Angle, and Slip Combined
+individually tracked for each tire
+* Suspension meters tracking relative suspension travel
+
+## Requirements  
+* NodeJS 14 or greater.
+
 ## Installation  
-1. Clone this repository.
+1. Clone this repository (`git clone https://github.com/SimplyNate/foretold.git`)
 2. Navigate to the cloned repository in a terminal.
 3. Run `npm install`
 4. Run `npm run build`
 
 ## Usage  
 `npm run listen`  
+
 This starts a listener for Forza's UDP telemetry data, starts a Fastify server, and automatically
 open the UI in a browser. When the listener detects Forza packets, it will open a WebSocket server
 between the UDP listener and the browser webpage.

@@ -203,7 +203,7 @@ export default defineComponent({
                 // @ts-ignore
                 this.telemetry.accelerator = this.telemetry.accelerator / 2.55;
                 // @ts-ignore
-                this.telemetry.steer = (this.telemetry.steer + 127) / 2.55;
+                this.telemetry.steer = (this.telemetry.steer + 127) / 2.54;
                 // @ts-ignore
                 this.telemetry.brake = this.telemetry.brake / 2.55;
                 // @ts-ignore
