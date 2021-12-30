@@ -180,20 +180,39 @@ export default defineComponent({
                 power: 745.7, // watts to horsepower
                 torque: 0.73756215, // foot-pounds to newton-meter
             },
+            chosenUnits: {
+                speed: 'mph',
+                power: 'horsepower',
+                torque: 'ftLbs',
+            },
             conversionOptions: ['metric', 'imperial'],
             speed: {
                 kph: 3.6,
                 mph: 2.23694,
                 meters: 1,
             },
+            speedUnits: {
+                kph: 'KPH',
+                mph: 'MPH',
+                meters: 'Meters / s',
+            },
             power: {
                 watts: 1,
                 horsepower: 745.7,
                 ps: 756.042859,
             },
+            powerUnits: {
+                watts: 'Watts',
+                horsepower: 'HP',
+                ps: 'PS',
+            },
             torque: {
                 Nm: 1,
                 ftLbs: 0.73756216,
+            },
+            torqueUnits: {
+                Nm: 'N m',
+                ftLbs: 'ft-lbs'
             },
             active: false,
             tireCompound: 'Semi-Slick/Slick',
