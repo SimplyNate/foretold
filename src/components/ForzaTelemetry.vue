@@ -44,17 +44,29 @@
                                 <div class="telemetry-box">
                                     <h3>Speed</h3>
                                     <div class="telemetry-value">{{ telemetry.speed }}</div>
-                                    <div class="telemetry-unit">MPH</div>
+                                    <div class="telemetry-unit">
+                                        <select v-model="speedUnit">
+                                            <option v-for="key of Object.keys(speedUnits)" :key="key" :value="key">{{ speedUnits[key] }}</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="telemetry-box">
                                     <h3>Power</h3>
                                     <div class="telemetry-value">{{ telemetry.power }}</div>
-                                    <div class="telemetry-unit">HP</div>
+                                    <div class="telemetry-unit">
+                                        <select v-model="powerUnit">
+                                            <option v-for="key of Object.keys(powerUnits)" :key="key" :value="key">{{ powerUnits[key] }}</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="telemetry-box">
                                     <h3>Torque</h3>
                                     <div class="telemetry-value">{{ telemetry.torque }}</div>
-                                    <div class="telemetry-unit">ft-lbs</div>
+                                    <div class="telemetry-unit">
+                                        <select v-model="torqueUnit">
+                                            <option v-for="key of Object.keys(torqueUnits)" :key="key" :value="key">{{ torqueUnits[key] }}</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="telemetry-box">
                                     <h3>Boost</h3>
@@ -123,6 +135,27 @@ interface ForzaTelemetryData {
         power: number,
         torque: number,
     },
+    speed: {
+        [index: string]: number,
+    },
+    speedUnits: {
+        [index: string]: string,
+    },
+    speedUnit: string,
+    power: {
+        [index: string]: number,
+    },
+    powerUnits: {
+        [index: string]: string,
+    },
+    powerUnit: string,
+    torque: {
+        [index: string]: number,
+    },
+    torqueUnits: {
+        [index: string]: string,
+    },
+    torqueUnit: string,
     active: boolean,
     tireCompound: string,
 }
@@ -180,12 +213,6 @@ export default defineComponent({
                 power: 745.7, // watts to horsepower
                 torque: 0.73756215, // foot-pounds to newton-meter
             },
-            chosenUnits: {
-                speed: 'mph',
-                power: 'horsepower',
-                torque: 'ftLbs',
-            },
-            conversionOptions: ['metric', 'imperial'],
             speed: {
                 kph: 3.6,
                 mph: 2.23694,
@@ -196,6 +223,7 @@ export default defineComponent({
                 mph: 'MPH',
                 meters: 'Meters / s',
             },
+            speedUnit: 'mph',
             power: {
                 watts: 1,
                 horsepower: 745.7,
@@ -206,6 +234,7 @@ export default defineComponent({
                 horsepower: 'HP',
                 ps: 'PS',
             },
+            powerUnit: 'horsepower',
             torque: {
                 Nm: 1,
                 ftLbs: 0.73756216,
@@ -214,9 +243,21 @@ export default defineComponent({
                 Nm: 'N m',
                 ftLbs: 'ft-lbs'
             },
+            torqueUnit: 'ftLbs',
             active: false,
             tireCompound: 'Semi-Slick/Slick',
         };
+    },
+    watch: {
+        speedUnit() {
+            this.conversions.speed = this.speed[this.speedUnit];
+        },
+        powerUnit() {
+            this.conversions.power = this.power[this.powerUnit];
+        },
+        torqueUnit() {
+            this.conversions.torque = this.torque[this.torqueUnit];
+        },
     },
     mounted() {
         this.connect();
