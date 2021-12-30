@@ -1,36 +1,38 @@
 {
-  "name": "foretold",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --mode production --dest ./server/dist --modern ",
-    "lint": "vue-cli-service lint",
-    "listen": "node server/listener.mjs"
-  },
-  "dependencies": {
-    "fastify": "^3.24.1",
-    "fastify-static": "^4.5.0",
-    "open": "^6.4.0",
-    "vue": "^3.2.24",
-    "ws": "^6.2.2"
-  },
-  "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.18.0",
-    "@typescript-eslint/parser": "^4.18.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-plugin-typescript": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
-    "@vue/compiler-sfc": "^3.0.0",
-    "@vue/eslint-config-typescript": "^7.0.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^7.0.0",
-    "sass": "^1.26.5",
-    "sass-loader": "^8.0.2",
-    "typescript": "~4.1.5"
-  },
-  "optionalDependencies": {
-    "bufferutil": "^4.0.5",
-    "utf-8-validate": "^5.0.7"
-  }
+    "name": "foretold",
+    "version": "0.1.0",
+    "private": true,
+    "repository": "https://github.com/SimplyNate/foretold",
+    "license": "MIT",
+    "scripts": {
+        "serve": "vue-cli-service serve",
+        "build": "vue-cli-service build --mode production --dest ./server/dist --modern ",
+        "lint": "vue-cli-service lint",
+        "listen": "node server/listener.mjs"
+    },
+    "dependencies": {
+        "fastify": "^3.24.1",
+        "fastify-static": "^4.5.0",
+        "open": "^6.4.0",
+        "vue": "^3.2.24",
+        "ws": "^6.2.2"
+    },
+    "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^4.18.0",
+        "@typescript-eslint/parser": "^4.18.0",
+        "@vue/cli-plugin-eslint": "~4.5.0",
+        "@vue/cli-plugin-typescript": "~4.5.0",
+        "@vue/cli-service": "~4.5.0",
+        "@vue/compiler-sfc": "^3.0.0",
+        "@vue/eslint-config-typescript": "^7.0.0",
+        "eslint": "^6.7.2",
+        "eslint-plugin-vue": "^7.0.0",
+        "sass": "^1.26.5",
+        "sass-loader": "^8.0.2",
+        "typescript": "~4.1.5"
+    },
+    "optionalDependencies": {
+        "bufferutil": "^4.0.5",
+        "utf-8-validate": "^5.0.7"
+    }
 }
