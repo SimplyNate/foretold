@@ -46,7 +46,7 @@
                                     <div class="telemetry-value">{{ telemetry.speed }}</div>
                                     <div class="telemetry-unit">
                                         <select v-model="speedUnit">
-                                            <option v-for="key of Object.keys(speedUnits)" :key="key" :value="key">{{ speedUnits[key] }}</option>
+                                            <option v-for="key of speedKeys" :key="key" :value="key">{{ speedUnits[key] }}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -55,7 +55,7 @@
                                     <div class="telemetry-value">{{ telemetry.power }}</div>
                                     <div class="telemetry-unit">
                                         <select v-model="powerUnit">
-                                            <option v-for="key of Object.keys(powerUnits)" :key="key" :value="key">{{ powerUnits[key] }}</option>
+                                            <option v-for="key of powerKeys" :key="key" :value="key">{{ powerUnits[key] }}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -64,7 +64,7 @@
                                     <div class="telemetry-value">{{ telemetry.torque }}</div>
                                     <div class="telemetry-unit">
                                         <select v-model="torqueUnit">
-                                            <option v-for="key of Object.keys(torqueUnits)" :key="key" :value="key">{{ torqueUnits[key] }}</option>
+                                            <option v-for="key of torqueKeys" :key="key" :value="key">{{ torqueUnits[key] }}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -247,6 +247,20 @@ export default defineComponent({
             active: false,
             tireCompound: 'Semi-Slick/Slick',
         };
+    },
+    computed: {
+        speedKeys() {
+            // @ts-ignore
+            return Object.keys(this.speedUnits);
+        },
+        powerKeys() {
+            // @ts-ignore
+            return Object.keys(this.powerUnits);
+        },
+        torqueKeys() {
+            // @ts-ignore
+            return Object.keys(this.torqueUnits);
+        }
     },
     watch: {
         speedUnit() {
