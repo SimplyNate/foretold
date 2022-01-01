@@ -34,6 +34,7 @@ open the UI in a browser. The Fastify server will also start a Websocket server 
 will connect to.
 
 # Forza Telemetry Documentation  
+Credit to this forum post: https://forums.forzamotorsport.net/turn10_postst128499_Forza-Motorsport-7--Data-Out--feature-details.aspx?=
 
 | Position | Name                     | Length | Type   | Notes                                                                               |
 |----------|--------------------------|--------|--------|-------------------------------------------------------------------------------------|
