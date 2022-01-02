@@ -1,8 +1,9 @@
 # foretold
 
-Simple Forza Horizon 5 telemetry visualizer. Built with NodeJS, Fastify, Vue 3, and Websockets.
+Simple Forza Horizon 5 telemetry visualizer. Built with Node.js, Fastify, Vue, and Websockets.
 
 ## Features  
+* Runs locally on same machine as Forza is running
 * Input meters for Acceleration, Brakes, Clutch, Handbrake, and Steering
 * Engine telemetry including current Tachometer, Speedometer, Gear, Power, Torque, and Boost readouts
 * Continuous tire temperature gradient modeled after Forza's in-game gradient from blue (cold) to red (hot)
@@ -12,7 +13,7 @@ individually tracked for each tire
 * Suspension meters tracking relative suspension travel
 
 ## Requirements  
-* NodeJS 14 or greater.
+* Node.js 14 or greater.
 
 ## Installation  
 1. Clone this repository (`git clone https://github.com/SimplyNate/foretold.git`)
@@ -32,6 +33,8 @@ In the same terminal that ran the `install` and `build` script above, run:
 This starts a listener for Forza's UDP telemetry data, starts a Fastify server on `port 3000`, and automatically
 open the UI in a browser. The Fastify server will also start a Websocket server on `port 3001`, which the browser page
 will connect to.
+
+If the webpage doesn't open automatically, open a browser and visit `http://localhost:3000`
 
 # Forza Telemetry Documentation  
 Credit to this forum post: https://forums.forzamotorsport.net/turn10_postst128499_Forza-Motorsport-7--Data-Out--feature-details.aspx?=
