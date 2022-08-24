@@ -14,28 +14,27 @@
         "listen": "node server/listener.mjs"
     },
     "dependencies": {
-        "fastify": "^3.24.1",
-        "fastify-static": "^4.5.0",
-        "open": "^6.4.0",
-        "vue": "^3.2.24",
-        "ws": "^6.2.2"
+        "fastify": "^4.5.2",
+        "fastify-static": "^4.7.0",
+        "open": "^8.4.0",
+        "vue": "^3.2.37",
+        "ws": "^8.8.1"
     },
     "devDependencies": {
-        "@typescript-eslint/eslint-plugin": "^4.18.0",
-        "@typescript-eslint/parser": "^4.18.0",
-        "@vue/cli-plugin-eslint": "~4.5.0",
-        "@vue/cli-plugin-typescript": "~4.5.0",
-        "@vue/cli-service": "~4.5.0",
-        "@vue/compiler-sfc": "^3.0.0",
-        "@vue/eslint-config-typescript": "^7.0.0",
-        "eslint": "^6.7.2",
-        "eslint-plugin-vue": "^7.0.0",
-        "sass": "^1.26.5",
-        "sass-loader": "^8.0.2",
-        "typescript": "~4.1.5"
+        "@typescript-eslint/eslint-plugin": "^5.34.0",
+        "@typescript-eslint/parser": "^5.34.0",
+        "@vue/cli-plugin-eslint": "~5.0.8",
+        "@vue/cli-plugin-typescript": "~5.0.8",
+        "@vue/cli-service": "~5.0.8",
+        "@vue/eslint-config-typescript": "^11.0.0",
+        "eslint": "^8.22.0",
+        "eslint-plugin-vue": "^9.4.0",
+        "sass": "^1.34.1",
+        "sass-loader": "^13.0.2",
+        "typescript": "~4.7.4"
     },
     "optionalDependencies": {
-        "bufferutil": "^4.0.5",
-        "utf-8-validate": "^5.0.7"
+        "bufferutil": "^4.0.6",
+        "utf-8-validate": "^5.0.9"
     }
 }
