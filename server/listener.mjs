@@ -1,10 +1,10 @@
 import dgram from 'dgram';
 import { forzaParser } from './ForzaParser.mjs';
 import Fastify from 'fastify';
-import fastifyStatic from 'fastify-static';
+import fastifyStatic from '@fastify/static';
 import * as path from 'path';
 import open from 'open';
-import ws from 'ws';
+import { WebSocketServer } from 'ws';
 
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
@@ -12,7 +12,7 @@ import { dirname } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const wss = new ws.Server({ port: 3001 });
+const wss = new WebSocketServer({ port: 3001 });
 console.log('Opened websocket server on port 3001');
 
 wss.on('connection', function connection(ws) {
@@ -50,18 +50,10 @@ fastify.register(fastifyStatic, {
     root: path.join(__dirname, 'dist'),
 });
 
-
-async function start() {
-    try {
-        await fastify.listen(3000);
-    } catch (err) {
-        fastify.log.error(err);
+fastify.listen({port: 3000}, (err, address) => {
+    if (err) {
+        console.error(err);
         process.exit(1);
     }
-}
-
-start();
-const url = 'http://localhost:3000/';
-
-console.log(`Started fastify webserver at ${url}`);
-open(url);
+    console.log(`Server listening at ${address}`);
+});

@@ -18,6 +18,7 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
+    // eslint-disable-next-line vue/multi-word-component-names
     name: 'Tire',
     props: {
         temperature: {
@@ -42,10 +43,10 @@ export default defineComponent({
         }
     },
     computed: {
-        tempString() {
+        tempString(): number {
             return Math.floor(this.temperature);
         },
-        tireCompoundId() {
+        tireCompoundId(): string {
             return this.compound === 'Semi-Slick/Slick' ? 'semiSlick' : 'other';
         },
     },
@@ -113,17 +114,27 @@ export default defineComponent({
             return proportion > 1 ? 1 : proportion < 0 ? 0 : proportion;
         },
         tireGradient() {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
             const redNormalized = this.percentInRange(this.temperature, this[this.tireCompoundId].red.min, this[this.tireCompoundId].red.max);
             let greenNormalized;
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
             if (this.temperature > this[this.tireCompoundId].red.max) {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
                 greenNormalized = 1 - this.percentInRange(this.temperature, this[this.tireCompoundId].green.minDown, this[this.tireCompoundId].green.maxDown);
             }
             else {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
                 greenNormalized = this.percentInRange(this.temperature, this[this.tireCompoundId].green.minUp, this[this.tireCompoundId].green.maxUp);
             }
             // if (greenNormalized > 1) {
             //     greenNormalized = 1 - (greenNormalized - 1);
             // }
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
             const blueNormalized = 1 - this.percentInRange(this.temperature, this[this.tireCompoundId].blue.min, this[this.tireCompoundId].blue.max);
             const r = 255 * redNormalized;
             const g = 255 * greenNormalized;

@@ -14,8 +14,8 @@
         "listen": "node server/listener.mjs"
     },
     "dependencies": {
-        "fastify": "^4.5.2",
-        "fastify-static": "^4.7.0",
+        "@fastify/static": "^6.5.0",
+        "fastify": "^4.5.3",
         "open": "^8.4.0",
         "vue": "^3.2.37",
         "ws": "^8.8.1"
